@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     [Header("Main Data")]
     [SerializeField] private Transform MainFirePoint;
     [SerializeField] private ParticleSystem MainFirePointPS;
+    [SerializeField] private GameObject BulletHole;
     [SerializeField] private int MainFireDamage;
     [SerializeField] private LayerMask LayerMask;
     [SerializeField] private float MainFireCD;
@@ -62,7 +63,15 @@ public class Weapon : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, rayLength, LayerMask))
         {
+            if (hit.collider.gameObject.GetComponent<SimpleGrenade>())
+            {
+                hit.collider.gameObject.GetComponent<SimpleGrenade>().Detonate();
+                return;
+            }
+
             Debug.Log("Did Hit on " + hit.collider.gameObject.name, hit.collider.gameObject);
+            GameObject holeGO = Instantiate(BulletHole, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(holeGO, Random.Range(2, 4));
         }
         else
         {

@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainFirePoint: {fileID: 8467791644981747659}
   MainFirePointPS: {fileID: 3898278692276071647}
+  BulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
   MainFireDamage: 2
   LayerMask:
     serializedVersion: 2

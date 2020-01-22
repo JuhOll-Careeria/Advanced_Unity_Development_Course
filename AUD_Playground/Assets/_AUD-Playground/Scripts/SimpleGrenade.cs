@@ -13,20 +13,25 @@ public class SimpleGrenade : MonoBehaviour
     {
         if (!collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Explosion!");
-            Instantiate(ExplosionEffect, this.transform.position, this.transform.rotation, null);
-
-            Collider[] colliders = Physics.OverlapSphere(this.transform.position, ExplosionRadius);
-            foreach (Collider hit in colliders)
-            {
-                Rigidbody rb = hit.GetComponent<Rigidbody>();
-
-                if (rb != null)
-                    rb.AddExplosionForce(ExplosionPower, this.transform.position, ExplosionRadius, 3.0F);
-            }
-
-            Destroy(this.gameObject);
+            Detonate();
         }
+    }
+
+    public void Detonate()
+    {
+        Debug.Log("Explosion!");
+        Instantiate(ExplosionEffect, this.transform.position, this.transform.rotation, null);
+
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, ExplosionRadius);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if (rb != null)
+                rb.AddExplosionForce(ExplosionPower, this.transform.position, ExplosionRadius, 3.0F);
+        }
+
+        Destroy(this.gameObject);
     }
 
     private void OnDrawGizmos()
