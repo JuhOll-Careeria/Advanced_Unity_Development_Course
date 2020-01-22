@@ -5,11 +5,11 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [Header("Main Data")]
-    [SerializeField] private GameObject MainProjectile;
     [SerializeField] private Transform MainFirePoint;
-    [SerializeField] private int MainProjectileDamage;
-    [SerializeField] private float MainCD;
-    [SerializeField] private float MainProjectileForce;
+    [SerializeField] private ParticleSystem MainFirePointPS;
+    [SerializeField] private int MainFireDamage;
+    [SerializeField] private LayerMask LayerMask;
+    [SerializeField] private float MainFireCD;
     [SerializeField] private SoundEffect MainSoundEffect;
     private bool MainOnCD = false;
 
@@ -42,13 +42,32 @@ public class Weapon : MonoBehaviour
 
     private void FireMainProjectile()
     {
-        GameObject Projectile = Instantiate(MainProjectile, MainFirePoint.position, MainFirePoint.rotation, null);
-        Projectile.GetComponent<Rigidbody>().AddForce(Projectile.transform.forward * MainProjectileForce);
-        Projectile.GetComponent<SimpleBullet>().Damage = MainProjectileDamage;
+        RegisterRayCast();
+
         AudioManager.Instance.PlayClipOnce(MainSoundEffect, this.gameObject);
+        MainFirePointPS.Play();
 
         MainOnCD = true;
-        Invoke("ResetMainCD", MainCD);
+        Invoke("ResetMainCD", MainFireCD);
+    }
+
+    void RegisterRayCast()
+    {
+        Vector3 rayOrigin = new Vector3(0.5f, 0.5f, 0f); // center of the screen
+        float rayLength = 500f;
+
+        Ray ray = Camera.main.ViewportPointToRay(rayOrigin);
+
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, rayLength, LayerMask))
+        {
+            Debug.Log("Did Hit on " + hit.collider.gameObject.name, hit.collider.gameObject);
+        }
+        else
+        {
+            Debug.Log("Did not Hit");
+        }
     }
 
     private void FireSecondaryProjectile()

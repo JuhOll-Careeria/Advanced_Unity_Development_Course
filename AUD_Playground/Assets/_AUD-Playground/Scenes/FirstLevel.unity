@@ -8654,7 +8654,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1502
+  m_Name: pb_Mesh-9766
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9173,7 +9173,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-1512
+  m_Name: pb_Mesh-9780
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -28542,7 +28542,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16900
+  m_Name: pb_Mesh21636
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -37543,18 +37543,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7477257823970181196, guid: d412ed731f17d7841b1137dcbb18136c,
-        type: 3}
-      propertyPath: MainProjectile
-      value: 
-      objectReference: {fileID: 6484079288237029690, guid: 4bee8f7c5f727ef49838fa283b4a9e64,
-        type: 3}
-    - target: {fileID: 7477257823970181196, guid: d412ed731f17d7841b1137dcbb18136c,
-        type: 3}
-      propertyPath: SecondaryProjectile
-      value: 
-      objectReference: {fileID: 1377995761075663649, guid: 7fdfb66232456fb4cb5f31ddc3abee3e,
-        type: 3}
     - target: {fileID: 7594926670550662006, guid: d412ed731f17d7841b1137dcbb18136c,
         type: 3}
       propertyPath: m_LocalPosition.x
