@@ -69,8 +69,15 @@ public class Weapon : MonoBehaviour
                 return;
             }
 
+            if (hit.collider.gameObject.GetComponent<Rigidbody>())
+            {
+                Debug.Log("Has Rigidbody");
+                hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(ray.direction * 100f);
+            }
+
             Debug.Log("Did Hit on " + hit.collider.gameObject.name, hit.collider.gameObject);
             GameObject holeGO = Instantiate(BulletHole, hit.point, Quaternion.LookRotation(hit.normal));
+            holeGO.transform.SetParent(hit.transform, true);
             Destroy(holeGO, Random.Range(2, 4));
         }
         else
