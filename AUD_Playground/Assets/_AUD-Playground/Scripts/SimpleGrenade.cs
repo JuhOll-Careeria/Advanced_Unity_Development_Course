@@ -9,6 +9,32 @@ public class SimpleGrenade : MonoBehaviour
     public float ExplosionPower = 10f;
     public int Damage = 0;
 
+    Rigidbody RB;
+
+    private void Start()
+    {
+        RB = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        //SpinObjectInAir();
+    }
+
+    /// <summary>
+    /// Spin the object realistically, so it will fall to the ground using the current velocity of the object
+    /// </summary>
+    void SpinObjectInAir()
+    {
+        float yVel = RB.velocity.y;
+        float zVel = RB.velocity.z;
+        float xVel = RB.velocity.x;
+        float combinedVel = Mathf.Sqrt(xVel * xVel + zVel * zVel);
+        float fallAngle = Mathf.Atan2(yVel, combinedVel) * 180f / Mathf.PI;
+
+        transform.eulerAngles = new Vector3(fallAngle, transform.eulerAngles.y, transform.eulerAngles.x);
+    }
+
     public void OnCollisionEnter(Collision collision)
     {
         if (!collision.gameObject.CompareTag("Player"))
@@ -21,7 +47,6 @@ public class SimpleGrenade : MonoBehaviour
     {
         Debug.Log("Explosion!");
         Instantiate(ExplosionEffect, this.transform.position, this.transform.rotation, null);
-
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, ExplosionRadius);
         foreach (Collider hit in colliders)
         {
