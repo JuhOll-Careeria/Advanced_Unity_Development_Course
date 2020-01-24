@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PhysicsCollision : MonoBehaviour
 {
-    [SerializeField] SoundEffect OnCollisionEnterSound;
+    [SerializeField] CollisionType _CollisionType;
 
     AudioSource AS;
     Rigidbody RB;
@@ -21,9 +21,7 @@ public class PhysicsCollision : MonoBehaviour
     {
         if (RB.velocity.magnitude > 0.5f)
         {
-            AudioManager.Instance.PlayClipOnce(OnCollisionEnterSound, this.gameObject);
+            AudioManager.Instance.PlayPropCollision(_CollisionType, this.gameObject);
         }
-
-        Debug.Log(RB.velocity.magnitude);
     }
 }

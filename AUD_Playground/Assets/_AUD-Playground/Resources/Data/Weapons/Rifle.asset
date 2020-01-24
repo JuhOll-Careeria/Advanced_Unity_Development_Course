@@ -15,7 +15,7 @@ MonoBehaviour:
   _MainFireDamage: 2
   _MainFireCD: 0.1
   _MainSoundEffect:
-    volume: 0.2
+    volume: 0.1
     spatialBlend: 1
     clips:
     - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
@@ -23,6 +23,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: bee541525ff05f34c8481961a9c82e46, type: 3}
     - {fileID: 8300000, guid: a08177706510a6346a8733e4f2284734, type: 3}
   MainMaxAmmo: 30
+  MainReloadTime: 3
   _UseSecondaryFire: 1
   _SecondaryProjectile: {fileID: 1377995761075663649, guid: 7fdfb66232456fb4cb5f31ddc3abee3e,
     type: 3}
@@ -30,8 +31,9 @@ MonoBehaviour:
   _SecondaryCD: 0.1
   _SecondaryProjectileForce: 2000
   _SecondarySoundEffect:
-    volume: 0.3
+    volume: 0.2
     spatialBlend: 1
     clips:
     - {fileID: 8300000, guid: f37eeb2371e531b418352f9409a48a08, type: 3}
   SecondaryMaxAmmo: 2
+  SecondaryReloadTime: 3

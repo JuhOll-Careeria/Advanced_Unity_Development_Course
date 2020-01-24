@@ -5,6 +5,10 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private PlayerData PlayerData;
+
+    [Header("Physics")]
+    [SerializeField] List<BulletHole> BulletHoles = new List<BulletHole>();
+
     private GameObject playerReference;
 
     private void Start()
@@ -28,5 +32,26 @@ public class GameManager : Singleton<GameManager>
             playerReference = value;
             Debug.Log("Player added to GameManager", value);
         }
+    }
+
+    public GameObject GetBulletHolePrefab(PhysicMaterial physicMat)
+    {
+        foreach (BulletHole BH in BulletHoles)
+        {
+            if (BH.PhysicMat.Equals(physicMat))
+            {
+                return BH.BulletHolePrefab;
+            }
+        }
+
+        // If the material is not on the list, return the base bullet hole impact prefab
+        return BulletHoles[0].BulletHolePrefab;
+    }
+
+    [System.Serializable]
+    public class BulletHole
+    {
+        public PhysicMaterial PhysicMat;
+        public GameObject BulletHolePrefab;
     }
 }

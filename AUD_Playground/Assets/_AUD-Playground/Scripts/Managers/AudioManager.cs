@@ -6,6 +6,11 @@ public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField] private SoundEffect Music;
 
+    [Header("Collision Impact Sounds")]
+    [SerializeField] private SoundEffect MetalImpact;
+    [SerializeField] private SoundEffect WoodImpact;
+    [SerializeField] private SoundEffect StoneImpact;
+
     private AudioSource AS;
 
     private void Awake()
@@ -55,4 +60,30 @@ public class AudioManager : Singleton<AudioManager>
         AS.loop = true;
         AS.Play();
     }
+
+    public void PlayPropCollision(CollisionType colType, GameObject root)
+    {
+        switch (colType)
+        {
+            case CollisionType.None:
+                break;
+            case CollisionType.Wood:
+                PlayClipOnce(WoodImpact, root);
+                break;
+            case CollisionType.Metal:
+                PlayClipOnce(MetalImpact, root);
+                break;
+            case CollisionType.Stone:
+                PlayClipOnce(StoneImpact, root);
+                break;
+        }
+    }
+}
+
+public enum CollisionType
+{
+    None,
+    Wood,
+    Metal,
+    Stone
 }

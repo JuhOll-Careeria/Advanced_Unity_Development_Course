@@ -8,7 +8,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private WeaponData WeaponData;
     [SerializeField] private Transform MainFirePoint;
     [SerializeField] private ParticleSystem MainFirePointPS;
-    [SerializeField] private GameObject BulletHole;
     [SerializeField] private LayerMask LayerMask;
     private bool MainOnCD = false;
     private bool MainReloading = false;
@@ -19,6 +18,11 @@ public class Weapon : MonoBehaviour
     private bool SecondaryOnCD = false;
     private bool SecondaryReloading = false;
     private int SecondaryCurrentAmmo = 0;
+
+    public WeaponData GetWeaponData()
+    {
+        return WeaponData;
+    }
 
     private void Start()
     {
@@ -96,6 +100,8 @@ public class Weapon : MonoBehaviour
                 hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(ray.direction * 100f);
             }
 
+            // Get the Bullet HOle Prefab from the GameManager, which stores all the BulletHole prefabs
+            GameObject BulletHole = GameManager.Instance.GetBulletHolePrefab(hit.collider.sharedMaterial);
 
             GameObject holeGO = Instantiate(BulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             holeGO.transform.SetParent(hit.transform, true);
