@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1925043165731232283}
   - component: {fileID: 1925043165731232282}
   - component: {fileID: 1925043165731232286}
-  - component: {fileID: 1925043165731232287}
+  - component: {fileID: 1004734109}
   m_Layer: 0
   m_Name: PortalEffect
   m_TagString: Untagged
@@ -389,7 +389,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1925043165731232287
+--- !u!114 &1004734109
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -398,17 +398,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1925043165731232280}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3311f36728e484dbf67c37b1490932, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ad11479feda63a4bbed2ce4faaeb891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerTags:
-  - Player
-  PortalEnterSound:
-    volume: 1
-    spatialBlend: 0
+  OnEnterInteractionEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  SoundEffectOnInteract:
+    volume: 0.5
+    spatialBlend: 1
     clips:
     - {fileID: 8300000, guid: d92c98d905c019e4286c3470ecb905f2, type: 3}
-  LevelName: 
+  DestroyOnInteract: 0
+  LevelName: SecondLevel
 --- !u!1 &1925043165776807806
 GameObject:
   m_ObjectHideFlags: 0
@@ -436,14 +438,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925043165776807806}
-  m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.70710677}
   m_LocalPosition: {x: 2.858, y: 9.79, z: -14.88}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1925043165731232281}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!33 &1925043165776807778
 MeshFilter:
   m_ObjectHideFlags: 0

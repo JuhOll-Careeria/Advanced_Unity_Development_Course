@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a911437615348240867ecf6fb165c09, type: 3}
+  m_Name: Rifle02
+  m_EditorClassIdentifier: 
+  _MainFireDamage: 2
+  _MainFireCD: 0.01
+  _MainSoundEffect:
+    volume: 0.2
+    spatialBlend: 1
+    clips:
+    - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
+    - {fileID: 8300000, guid: e7ea0dec9d0dcc54fbc30bf14fc72356, type: 3}
+    - {fileID: 8300000, guid: bee541525ff05f34c8481961a9c82e46, type: 3}
+    - {fileID: 8300000, guid: a08177706510a6346a8733e4f2284734, type: 3}
+  MainMaxAmmo: 100
+  MainReloadTime: 3
+  _UseSecondaryFire: 0
+  _SecondaryProjectile: {fileID: 1377995761075663649, guid: 7fdfb66232456fb4cb5f31ddc3abee3e,
+    type: 3}
+  _SecondaryProjectileDamage: 20
+  _SecondaryCD: 3
+  _SecondaryProjectileForce: 2000
+  _SecondarySoundEffect:
+    volume: 0.3
+    spatialBlend: 1
+    clips:
+    - {fileID: 8300000, guid: f37eeb2371e531b418352f9409a48a08, type: 3}
+  SecondaryMaxAmmo: 2
+  SecondaryReloadTime: 3

@@ -80,7 +80,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7595695636123865940
 Transform:
   m_ObjectHideFlags: 0
@@ -156,33 +156,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0f6ff80d0466e244859edc05529c1a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WeaponData: {fileID: 0}
   MainFirePoint: {fileID: 8467791644981747659}
   MainFirePointPS: {fileID: 3898278692276071647}
   BulletHole: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
-  MainFireDamage: 2
   LayerMask:
     serializedVersion: 2
     m_Bits: 55
-  MainFireCD: 0.1
-  MainSoundEffect:
-    volume: 0.15
-    spatialBlend: 1
-    clips:
-    - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
-    - {fileID: 8300000, guid: e7ea0dec9d0dcc54fbc30bf14fc72356, type: 3}
-    - {fileID: 8300000, guid: bee541525ff05f34c8481961a9c82e46, type: 3}
-    - {fileID: 8300000, guid: a08177706510a6346a8733e4f2284734, type: 3}
-  SecondaryProjectile: {fileID: 1377995761075663649, guid: 7fdfb66232456fb4cb5f31ddc3abee3e,
-    type: 3}
   SecondaryFirePoint: {fileID: 8265020134446370719}
-  SecondaryProjectileDamage: 0
-  SecondaryCD: 3
-  SecondaryProjectileForce: 2000
-  SecondarySoundEffect:
-    volume: 0.3
-    spatialBlend: 1
-    clips:
-    - {fileID: 8300000, guid: f37eeb2371e531b418352f9409a48a08, type: 3}
 --- !u!82 &8741390713991397286
 AudioSource:
   m_ObjectHideFlags: 0
@@ -632,6 +613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b554e995537f7904d97cb6001dd7e9d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: db5074acd4e50bf48abfcc9818081804, type: 2}
+  WeaponRoot: {fileID: 7595695636123678530}
+  Weapon: {fileID: 7477257823970181196}
 --- !u!82 &7515538822688364870
 AudioSource:
   m_ObjectHideFlags: 0

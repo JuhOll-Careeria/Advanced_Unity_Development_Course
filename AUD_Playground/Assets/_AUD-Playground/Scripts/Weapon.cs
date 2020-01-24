@@ -5,23 +5,20 @@ using UnityEngine;
 public class Weapon : MonoBehaviour
 {
     [Header("Main Data")]
+    [SerializeField] private WeaponData WeaponData;
     [SerializeField] private Transform MainFirePoint;
     [SerializeField] private ParticleSystem MainFirePointPS;
     [SerializeField] private GameObject BulletHole;
-    [SerializeField] private int MainFireDamage;
     [SerializeField] private LayerMask LayerMask;
-    [SerializeField] private float MainFireCD;
-    [SerializeField] private SoundEffect MainSoundEffect;
     private bool MainOnCD = false;
+    private bool MainReloading = false;
+    private int PrimaryCurrentAmmo = 0;
 
     [Header("Secondary Data")]
-    [SerializeField] private GameObject SecondaryProjectile;
     [SerializeField] private Transform SecondaryFirePoint;
-    [SerializeField] private int SecondaryProjectileDamage;
-    [SerializeField] private float SecondaryCD;
-    [SerializeField] private float SecondaryProjectileForce;
-    [SerializeField] private SoundEffect SecondarySoundEffect;
     private bool SecondaryOnCD = false;
+    private bool SecondaryReloading = false;
+    private int SecondaryCurrentAmmo = 0;
 
     private void Start()
     {
@@ -35,21 +32,42 @@ public class Weapon : MonoBehaviour
             FireMainProjectile();
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !SecondaryOnCD)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !SecondaryOnCD && WeaponData._UseSecondaryFire)
         {
             FireSecondaryProjectile();
         }
     }
 
-    private void FireMainProjectile()
+    public void ChangeWeaponData(WeaponData data)
     {
+        WeaponData = data;
+        PrimaryCurrentAmmo = data.MainMaxAmmo;
+        SecondaryCurrentAmmo = data.SecondaryMaxAmmo;
+        RefreshUI();
+    }
+
+    public void FireMainProjectile()
+    {
+        if (MainOnCD || MainReloading)
+            return;
+
+        if (PrimaryCurrentAmmo <= 0)
+        {
+            MainReloading = true;
+            Invoke("ReloadMain", WeaponData.MainReloadTime);
+            return;
+        }
+
         RegisterRayCast();
 
-        AudioManager.Instance.PlayClipOnce(MainSoundEffect, this.gameObject);
+        PrimaryCurrentAmmo--;
+        RefreshUI();
+
+        AudioManager.Instance.PlayClipOnce(WeaponData._MainSoundEffect, this.gameObject);
         MainFirePointPS.Play();
 
         MainOnCD = true;
-        Invoke("ResetMainCD", MainFireCD);
+        Invoke("ResetMainCD", WeaponData._MainFireCD);
     }
 
     void RegisterRayCast()
@@ -69,13 +87,16 @@ public class Weapon : MonoBehaviour
                 return;
             }
 
-            if (hit.collider.gameObject.GetComponent<Rigidbody>())
+            if (hit.collider.GetComponent<IKillable>() != null)
             {
-                Debug.Log("Has Rigidbody");
+                hit.collider.GetComponent<IKillable>().OnDamageTaken(WeaponData._MainFireDamage);
+            }
+            else if (hit.collider.gameObject.GetComponent<Rigidbody>())
+            {
                 hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(ray.direction * 100f);
             }
 
-            Debug.Log("Did Hit on " + hit.collider.gameObject.name, hit.collider.gameObject);
+
             GameObject holeGO = Instantiate(BulletHole, hit.point, Quaternion.LookRotation(hit.normal));
             holeGO.transform.SetParent(hit.transform, true);
             Destroy(holeGO, Random.Range(2, 4));
@@ -86,15 +107,48 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void FireSecondaryProjectile()
+    public void FireSecondaryProjectile()
     {
-        GameObject Projectile = Instantiate(SecondaryProjectile, SecondaryFirePoint.position, SecondaryFirePoint.rotation, null);
-        Projectile.GetComponent<Rigidbody>().AddForce(Projectile.transform.forward * SecondaryProjectileForce);
+        if (SecondaryOnCD || !WeaponData._UseSecondaryFire || SecondaryReloading)
+            return;
 
-        AudioManager.Instance.PlayClipOnce(SecondarySoundEffect, this.gameObject);
+        if (SecondaryCurrentAmmo <= 0)
+        {
+            SecondaryReloading = true;
+            Invoke("ReloadSecondary", WeaponData.SecondaryReloadTime);
+            return;
+        }
+
+        GameObject Projectile = Instantiate(WeaponData._SecondaryProjectile, SecondaryFirePoint.position, SecondaryFirePoint.rotation, null);
+        Projectile.GetComponent<Rigidbody>().AddForce(Projectile.transform.forward * WeaponData._SecondaryProjectileForce);
+
+        SecondaryCurrentAmmo--;
+
+        AudioManager.Instance.PlayClipOnce(WeaponData._SecondarySoundEffect, this.gameObject);
+
+        RefreshUI();
 
         SecondaryOnCD = true;
-        Invoke("ResetSecondaryCD", SecondaryCD);
+        Invoke("ResetSecondaryCD", WeaponData._SecondaryCD);
+    }
+
+    void RefreshUI()
+    {
+        UIManager.Instance.RefreshAmmoUI(WeaponData, PrimaryCurrentAmmo, SecondaryCurrentAmmo);
+    }
+
+    void ReloadMain()
+    {
+        MainReloading = false;
+        PrimaryCurrentAmmo = WeaponData.MainMaxAmmo;
+        RefreshUI();
+    }
+
+    void ReloadSecondary()
+    {
+        SecondaryReloading = false;
+        SecondaryCurrentAmmo = WeaponData.SecondaryMaxAmmo;
+        RefreshUI();
     }
 
     void ResetMainCD()

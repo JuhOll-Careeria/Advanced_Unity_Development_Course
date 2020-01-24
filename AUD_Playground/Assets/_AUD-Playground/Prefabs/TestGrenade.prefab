@@ -1437,7 +1437,7 @@ MonoBehaviour:
     type: 3}
   ExplosionRadius: 10
   ExplosionPower: 1000
-  Damage: 0
+  Damage: 10
 --- !u!54 &1377995761075663650
 Rigidbody:
   m_ObjectHideFlags: 0

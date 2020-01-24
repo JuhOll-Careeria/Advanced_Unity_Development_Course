@@ -7,7 +7,7 @@ public class SimpleGrenade : MonoBehaviour
     public GameObject ExplosionEffect;
     public float ExplosionRadius = 5f;
     public float ExplosionPower = 10f;
-    public int Damage = 0;
+    public int Damage = 10;
 
     Rigidbody RB;
 
@@ -18,7 +18,7 @@ public class SimpleGrenade : MonoBehaviour
 
     private void Update()
     {
-        //SpinObjectInAir();
+        SpinObjectInAir();
     }
 
     /// <summary>
@@ -48,9 +48,15 @@ public class SimpleGrenade : MonoBehaviour
         Debug.Log("Explosion!");
         Instantiate(ExplosionEffect, this.transform.position, this.transform.rotation, null);
         Collider[] colliders = Physics.OverlapSphere(this.transform.position, ExplosionRadius);
+
         foreach (Collider hit in colliders)
         {
             Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+            if (hit.gameObject.GetComponent<IKillable>() != null)
+            {
+                hit.gameObject.GetComponent<IKillable>().OnDamageTaken(Damage);
+            }
 
             if (rb != null)
                 rb.AddExplosionForce(ExplosionPower, this.transform.position, ExplosionRadius, 3.0F);
