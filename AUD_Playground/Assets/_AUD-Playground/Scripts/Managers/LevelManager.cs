@@ -46,7 +46,7 @@ public class LevelManager : Singleton<LevelManager>
         PostProcessVolume.sharedProfile.TryGet(out lensDistortion);
         chromaticAberration.intensity.value = 0;
         lensDistortion.intensity.value = 0;
-        LoadLevel("Tutorial");
+        LoadLevel(Levels[0].Scene);
     }
 
     /// <summary>

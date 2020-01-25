@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -476,6 +476,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
         type: 3}
+      propertyPath: Levels.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
       propertyPath: PostProcessVolume
       value: 
       objectReference: {fileID: 759426140}
@@ -483,6 +488,49 @@ PrefabInstance:
         type: 3}
       propertyPath: PortalEffectDuration
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[2].LevelName
+      value: ThirdLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[2].Scene.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: d1c3109bdb54ad54c8a2b2838528e640,
+        type: 3}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[2].Scene.scenePath
+      value: Assets/_AUD-Playground/Scenes/ThirdLevel.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[0].LevelName
+      value: FirstLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[1].Scene.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: 61d725e13d730af48967cfccbb4c9ad4,
+        type: 3}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[1].Scene.scenePath
+      value: Assets/_AUD-Playground/Scenes/SecondLevel.unity
+      objectReference: {fileID: 0}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[0].Scene.sceneAsset
+      value: 
+      objectReference: {fileID: 102900000, guid: ccb7c68ff630137499841ba713e1a981,
+        type: 3}
+    - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
+        type: 3}
+      propertyPath: Levels.Array.data[0].Scene.scenePath
+      value: Assets/_AUD-Playground/Scenes/FirstLevel.unity
       objectReference: {fileID: 0}
     - target: {fileID: 8378908062701290286, guid: c602f5cf27d677241a5bdc45123ce15c,
         type: 3}
