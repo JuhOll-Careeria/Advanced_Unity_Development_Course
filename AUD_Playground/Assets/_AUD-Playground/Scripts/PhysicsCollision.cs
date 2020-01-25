@@ -11,7 +11,7 @@ public class PhysicsCollision : MonoBehaviour
 
     bool isDragging = false;
 
-    private void Start()
+    private void Awake()
     {
         RB = GetComponent<Rigidbody>();
         AS = GetComponent<AudioSource>();

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -525,12 +525,12 @@ PrefabInstance:
         type: 3}
       propertyPath: Levels.Array.data[0].Scene.sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: ccb7c68ff630137499841ba713e1a981,
+      objectReference: {fileID: 102900000, guid: d1c3109bdb54ad54c8a2b2838528e640,
         type: 3}
     - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
         type: 3}
       propertyPath: Levels.Array.data[0].Scene.scenePath
-      value: Assets/_AUD-Playground/Scenes/FirstLevel.unity
+      value: Assets/_AUD-Playground/Scenes/ThirdLevel.unity
       objectReference: {fileID: 0}
     - target: {fileID: 8378908062701290286, guid: c602f5cf27d677241a5bdc45123ce15c,
         type: 3}
@@ -620,7 +620,7 @@ PrefabInstance:
     - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
         type: 3}
       propertyPath: StoneImpact.clips.Array.size
-      value: 3
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
         type: 3}
@@ -701,17 +701,37 @@ PrefabInstance:
         type: 3}
       propertyPath: StoneImpact.clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: 19bb701132082ef41befc185c85ed840, type: 3}
+      objectReference: {fileID: 8300000, guid: c780f04272cb9df4589d3afd97b8a30f, type: 3}
     - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
         type: 3}
       propertyPath: StoneImpact.clips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: b4972ecdef202d74bb0fb58d2b37f772, type: 3}
+      objectReference: {fileID: 8300000, guid: c2384a4244a0d4c499839ae556f8578f, type: 3}
     - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
         type: 3}
       propertyPath: StoneImpact.clips.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: d894cff4c91d68741b12cfe328138a9f, type: 3}
+      objectReference: {fileID: 8300000, guid: b504b212774d3f846a5c41ee996fd40d, type: 3}
+    - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
+        type: 3}
+      propertyPath: StoneImpact.clips.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 7de174a835a39e349bfea9c135edb676, type: 3}
+    - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
+        type: 3}
+      propertyPath: StoneImpact.clips.Array.data[4]
+      value: 
+      objectReference: {fileID: 8300000, guid: acb5fc2e0ab470e40998af85aae5a879, type: 3}
+    - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
+        type: 3}
+      propertyPath: StoneImpact.clips.Array.data[5]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5a130451c9557194ba16b3b0f08561c7, type: 3}
+    - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
+        type: 3}
+      propertyPath: StoneImpact.clips.Array.data[6]
+      value: 
+      objectReference: {fileID: 8300000, guid: a7a69ca7f2a8e4a4e844656a670b90c3, type: 3}
     - target: {fileID: 8473982398508527555, guid: 156df1f31d2e09845a18d3ef7d712260,
         type: 3}
       propertyPath: m_LocalPosition.x
