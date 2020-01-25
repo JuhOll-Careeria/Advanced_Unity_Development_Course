@@ -10,6 +10,6 @@ public class PortalInteractable : OnEnterInteractable
     public override void OnEnterInteract()
     {
         base.OnEnterInteract();
-        LevelManager.Instance.LoadLevel(LevelName);
+        LevelManager.Instance.LoadLevel(LevelName, true);
     }
 }

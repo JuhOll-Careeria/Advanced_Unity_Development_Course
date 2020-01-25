@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 
@@ -29,8 +31,21 @@ public class LevelManager : Singleton<LevelManager>
     // Voidaan hakea kymmeniä kenttiä näppärästi, esim stringin tai SceneReferencen tiedoilla
     [SerializeField] private LevelData[] Levels;
 
+    [SerializeField] Volume PostProcessVolume;
+    [SerializeField] float PortalEffectDuration;
+    [SerializeField] float PortalEffectFactor;
+
+    ChromaticAberration chromaticAberration;
+    LensDistortion lensDistortion;
+    string PortalSceneReference;
+    bool UsingPortal;
+
     void Start()
     {
+        PostProcessVolume.sharedProfile.TryGet(out chromaticAberration);
+        PostProcessVolume.sharedProfile.TryGet(out lensDistortion);
+        chromaticAberration.intensity.value = 0;
+        lensDistortion.intensity.value = 0;
         LoadLevel("Tutorial");
     }
 
@@ -53,5 +68,50 @@ public class LevelManager : Singleton<LevelManager>
     public void LoadLevel(SceneReference scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    /// <summary>
+    /// Used for changing scenes via portals
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="UsePortalEffect"></param>
+    public void LoadLevel(string scene, bool UsePortalEffect)
+    {
+        if (UsePortalEffect)
+        {
+            PortalSceneReference = scene;
+            DoPortalEffect();
+        }
+    }
+
+    private void Update()
+    {
+        if (UsingPortal)
+        {
+            lensDistortion.intensity.value = Mathf.Lerp(lensDistortion.intensity.value, -1, PortalEffectDuration * Time.deltaTime);
+            chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, 1, PortalEffectDuration * Time.deltaTime);
+        }
+        else
+        {
+            lensDistortion.intensity.value = Mathf.Lerp(lensDistortion.intensity.value, 0, PortalEffectDuration * Time.deltaTime);
+            chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, 0, PortalEffectDuration * Time.deltaTime);
+        }
+    }
+
+    void DoPortalEffect()
+    {
+        UsingPortal = true;
+        GameManager.Instance.TogglePlayerMovement(false);
+        Invoke("LoadLevel", PortalEffectDuration);
+    }
+
+    /// <summary>
+    /// after a certain time change the level using the portal scene reference and reset chromatic abberration
+    /// </summary>
+    void LoadLevel()
+    {
+        UsingPortal = false;
+        GameManager.Instance.TogglePlayerMovement(true);
+        LoadLevel(PortalSceneReference);
     }
 }

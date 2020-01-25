@@ -54,4 +54,9 @@ public class GameManager : Singleton<GameManager>
         public PhysicMaterial PhysicMat;
         public GameObject BulletHolePrefab;
     }
+
+    public void TogglePlayerMovement(bool t)
+    {
+        Player.GetComponent<FirstPersonAIO>().playerCanMove = t;
+    }
 }

@@ -77,6 +77,8 @@ public class PlayerController : MonoBehaviour, IKillable
     void CarryObject()
     {
         PickedObject.GetComponent<Rigidbody>().useGravity = false;
+        PickedObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        PickedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         Vector3 pos = PlayerCam.transform.position + PlayerCam.transform.forward * CarryDistance;
         PickedObject.transform.position = Vector3.Lerp(PickedObject.transform.position, pos, Time.deltaTime * CarrySmooth);
     }
