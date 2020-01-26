@@ -10,30 +10,39 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a911437615348240867ecf6fb165c09, type: 3}
-  m_Name: Rifle02
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  _MainFireDamage: 2
-  _MainFireCD: 0.01
-  _MainSoundEffect:
-    volume: 0.2
+  _WepPrefab: {fileID: 1874271575252496868, guid: dbbbc169fadb8474a98f9649fa05c2e9,
+    type: 3}
+  _MainFireDamage: 1
+  _MainFireCD: 0.2
+  _MainFireSE:
+    volume: 0.1
     spatialBlend: 1
     clips:
     - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
     - {fileID: 8300000, guid: e7ea0dec9d0dcc54fbc30bf14fc72356, type: 3}
     - {fileID: 8300000, guid: bee541525ff05f34c8481961a9c82e46, type: 3}
     - {fileID: 8300000, guid: a08177706510a6346a8733e4f2284734, type: 3}
-  MainMaxAmmo: 100
-  MainReloadTime: 3
-  _UseSecondaryFire: 0
-  _SecondaryProjectile: {fileID: 1377995761075663649, guid: 7fdfb66232456fb4cb5f31ddc3abee3e,
-    type: 3}
-  _SecondaryProjectileDamage: 20
-  _SecondaryCD: 3
-  _SecondaryProjectileForce: 2000
-  _SecondarySoundEffect:
-    volume: 0.3
+  _MainReloadSE:
+    volume: 0.2
     spatialBlend: 1
     clips:
-    - {fileID: 8300000, guid: f37eeb2371e531b418352f9409a48a08, type: 3}
+    - {fileID: 8300000, guid: f9ac29879777a454cbd5724255106dd1, type: 3}
+  MainMaxAmmo: 12
+  MainReloadTime: 2
+  _UseSecondaryFire: 0
+  _SecondaryProjectile: {fileID: 0}
+  _SecondaryProjectileDamage: 0
+  _SecondaryCD: 0
+  _SecondaryProjectileForce: 0
+  _SecondaryFireSE:
+    volume: 0
+    spatialBlend: 0
+    clips: []
+  _SecondaryReloadSE:
+    volume: 0
+    spatialBlend: 0
+    clips: []
   SecondaryMaxAmmo: 2
   SecondaryReloadTime: 3

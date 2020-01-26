@@ -7,11 +7,13 @@ public class UIManager : Singleton<UIManager>
 {
     [SerializeField] private GameObject BaseHUD;
 
-    [SerializeField] private TextMeshProUGUI BounceAmountText; 
+    [SerializeField] private TextMeshProUGUI BounceAmountText;
     [SerializeField] private int BounceAmount = 0;
 
     [SerializeField] private TextMeshProUGUI MainAmmo;
     [SerializeField] private TextMeshProUGUI SecondaryAmmo;
+
+    [SerializeField] private GameObject SniperScopeHUD;
 
     void Start()
     {
@@ -27,6 +29,25 @@ public class UIManager : Singleton<UIManager>
     {
         BounceAmount++;
         RefreshUI();
+    }
+
+    public void ToggleSnipeScope()
+    {
+        SniperScopeHUD.SetActive(!SniperScopeHUD.activeSelf);
+
+        if (SniperScopeHUD.activeSelf)
+        {
+            GameManager.Instance.Player.GetComponent<PlayerController>().SetScopedFOV(true);
+        }
+        else
+        {
+            GameManager.Instance.Player.GetComponent<PlayerController>().SetScopedFOV(false);
+        }
+    }
+
+    public void DisableSniperScope()
+    {
+        SniperScopeHUD.SetActive(false);
     }
 
     public void RefreshUI()

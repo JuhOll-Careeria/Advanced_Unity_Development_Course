@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a911437615348240867ecf6fb165c09, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
+  _WepPrefab: {fileID: 8232184646087156200, guid: c92eb5a39ba7ea54d8aac05cf51955f4,
+    type: 3}
   _MainFireDamage: 2
   _MainFireCD: 0.1
-  _MainSoundEffect:
+  _MainFireSE:
     volume: 0.1
     spatialBlend: 1
     clips:
@@ -22,6 +24,11 @@ MonoBehaviour:
     - {fileID: 8300000, guid: e7ea0dec9d0dcc54fbc30bf14fc72356, type: 3}
     - {fileID: 8300000, guid: bee541525ff05f34c8481961a9c82e46, type: 3}
     - {fileID: 8300000, guid: a08177706510a6346a8733e4f2284734, type: 3}
+  _MainReloadSE:
+    volume: 0.2
+    spatialBlend: 1
+    clips:
+    - {fileID: 8300000, guid: f9ac29879777a454cbd5724255106dd1, type: 3}
   MainMaxAmmo: 30
   MainReloadTime: 3
   _UseSecondaryFire: 1
@@ -30,10 +37,14 @@ MonoBehaviour:
   _SecondaryProjectileDamage: 20
   _SecondaryCD: 0.1
   _SecondaryProjectileForce: 2000
-  _SecondarySoundEffect:
+  _SecondaryFireSE:
     volume: 0.2
     spatialBlend: 1
     clips:
     - {fileID: 8300000, guid: f37eeb2371e531b418352f9409a48a08, type: 3}
+  _SecondaryReloadSE:
+    volume: 0
+    spatialBlend: 0
+    clips: []
   SecondaryMaxAmmo: 2
   SecondaryReloadTime: 3

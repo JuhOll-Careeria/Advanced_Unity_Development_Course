@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
     int currentHealth = 0;
     PlayerData playerData;
+    float BaseFOV;
 
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
 
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour, IKillable
         }
 
         PlayerCam = GetComponentInChildren<Camera>();
+        BaseFOV = PlayerCam.fieldOfView;
     }
 
     void Update()
@@ -69,8 +71,29 @@ public class PlayerController : MonoBehaviour, IKillable
 
             if (Input.GetKeyDown(KeyCode.Mouse1))
             {
-                Weapon.FireSecondaryProjectile();
+                if (Weapon.GetWeaponData().SniperScope)
+                {
+                    UIManager.Instance.ToggleSnipeScope();
+                }
+                else
+                {
+                    Weapon.FireSecondaryProjectile();
+                }
             }
+        }
+    }
+
+    public void SetScopedFOV(bool t)
+    {
+        if (t)
+        {
+            GetComponent<FirstPersonAIO>().mouseSensitivity = 0.2f;
+            PlayerCam.fieldOfView = Weapon.GetWeaponData().ScopedZoomFOV;
+        }
+        else
+        {
+            GetComponent<FirstPersonAIO>().mouseSensitivity = 1.4f;
+            PlayerCam.fieldOfView = BaseFOV;
         }
     }
 
@@ -82,7 +105,7 @@ public class PlayerController : MonoBehaviour, IKillable
         Vector3 pos = PlayerCam.transform.position + PlayerCam.transform.forward * CarryDistance;
         PickedObject.transform.position = Vector3.Lerp(PickedObject.transform.position, pos, Time.deltaTime * CarrySmooth);
     }
-    
+
     void DropObject()
     {
         carrying = false;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+
     [Header("Main Data")]
     [SerializeField] private WeaponData WeaponData;
     [SerializeField] private Transform MainFirePoint;
@@ -19,6 +20,8 @@ public class Weapon : MonoBehaviour
     private bool SecondaryReloading = false;
     private int SecondaryCurrentAmmo = 0;
 
+    GameObject CurrentWeaponMesh = null;
+
     public WeaponData GetWeaponData()
     {
         return WeaponData;
@@ -29,22 +32,29 @@ public class Weapon : MonoBehaviour
         this.transform.LookAt(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 100f)));
     }
 
-    private void FixedUpdate()
-    {
-        if (Input.GetKey(KeyCode.Mouse0) && !MainOnCD)
-        {
-            FireMainProjectile();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !SecondaryOnCD && WeaponData._UseSecondaryFire)
-        {
-            FireSecondaryProjectile();
-        }
-    }
-
     public void ChangeWeaponData(WeaponData data)
     {
+        if (CurrentWeaponMesh != null)
+        {
+            Destroy(CurrentWeaponMesh);
+        }
+
         WeaponData = data;
+        CurrentWeaponMesh = Instantiate(data._WepPrefab, this.transform);
+
+        // TODO: Syntiä
+        foreach (Transform trans in GetComponentsInChildren<Transform>())
+        {
+            if (trans.name.Equals("FirePoint_Main"))
+                MainFirePoint = trans;
+
+            if (trans.name.Equals("FirePoint_Secondary") && data._UseSecondaryFire)
+                SecondaryFirePoint = trans;
+
+            if (trans.GetComponent<ParticleSystem>())            
+                MainFirePointPS = trans.GetComponent<ParticleSystem>();                    
+        }
+
         PrimaryCurrentAmmo = data.MainMaxAmmo;
         SecondaryCurrentAmmo = data.SecondaryMaxAmmo;
         RefreshUI();
@@ -55,20 +65,23 @@ public class Weapon : MonoBehaviour
         if (MainOnCD || MainReloading)
             return;
 
-        if (PrimaryCurrentAmmo <= 0)
-        {
-            MainReloading = true;
-            Invoke("ReloadMain", WeaponData.MainReloadTime);
-            return;
-        }
 
         RegisterRayCast();
 
         PrimaryCurrentAmmo--;
         RefreshUI();
 
-        AudioManager.Instance.PlayClipOnce(WeaponData._MainSoundEffect, this.gameObject);
+        AudioManager.Instance.PlayClipOnce(WeaponData._MainFireSE, this.gameObject);
         MainFirePointPS.Play();
+
+        // Do reload instead of setting MainOnCD to true
+        if (PrimaryCurrentAmmo <= 0)
+        {
+            MainReloading = true;
+            AudioManager.Instance.PlayClipOnce(WeaponData._MainReloadSE, this.gameObject);
+            Invoke("ReloadMain", WeaponData.MainReloadTime);
+            return;
+        }
 
         MainOnCD = true;
         Invoke("ResetMainCD", WeaponData._MainFireCD);
@@ -118,21 +131,24 @@ public class Weapon : MonoBehaviour
         if (SecondaryOnCD || !WeaponData._UseSecondaryFire || SecondaryReloading)
             return;
 
-        if (SecondaryCurrentAmmo <= 0)
-        {
-            SecondaryReloading = true;
-            Invoke("ReloadSecondary", WeaponData.SecondaryReloadTime);
-            return;
-        }
 
         GameObject Projectile = Instantiate(WeaponData._SecondaryProjectile, SecondaryFirePoint.position, SecondaryFirePoint.rotation, null);
         Projectile.GetComponent<Rigidbody>().AddForce(Projectile.transform.forward * WeaponData._SecondaryProjectileForce);
 
         SecondaryCurrentAmmo--;
 
-        AudioManager.Instance.PlayClipOnce(WeaponData._SecondarySoundEffect, this.gameObject);
+        AudioManager.Instance.PlayClipOnce(WeaponData._SecondaryFireSE, this.gameObject);
 
         RefreshUI();
+
+        // If we run out of ammo, do reload instead of setting "SecondaryOnCD"
+        if (SecondaryCurrentAmmo <= 0)
+        {
+            SecondaryReloading = true;
+            AudioManager.Instance.PlayClipOnce(WeaponData._SecondaryReloadSE, this.gameObject);
+            Invoke("ReloadSecondary", WeaponData.SecondaryReloadTime);
+            return;
+        }
 
         SecondaryOnCD = true;
         Invoke("ResetSecondaryCD", WeaponData._SecondaryCD);
