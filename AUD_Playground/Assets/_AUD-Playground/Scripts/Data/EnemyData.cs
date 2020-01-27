@@ -7,11 +7,16 @@
 public class EnemyData : CreatureData
 {
     [Header("Enemy Data")]
-    public GameObject ProjectilePrefab;
-    public int Damage;
     [Range(0f, 1f)]
     public float CritChance;
     public float CritDmgMultiplier = 2;
+    public float ChaseTime = 10f;
+    public SoundEffect AttackSE;
+
+    [Header("Attack Data")]
+    public GameObject ProjectilePrefab;
+    public float ProjectileForce = 500f;
+    public float AttackCD = 1f;
 
     public bool CalculateCrit()
     {

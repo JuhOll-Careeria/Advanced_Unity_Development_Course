@@ -32,6 +32,20 @@ public class Weapon : MonoBehaviour
         this.transform.LookAt(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 100f)));
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (WeaponData != null)
+            {
+                if (PrimaryCurrentAmmo < WeaponData.MainMaxAmmo || SecondaryCurrentAmmo < WeaponData.SecondaryMaxAmmo)
+                {
+                    DoReload();
+                }
+            }
+        }
+    }
+
     public void ChangeWeaponData(WeaponData data)
     {
         if (CurrentWeaponMesh != null)
@@ -133,6 +147,7 @@ public class Weapon : MonoBehaviour
 
 
         GameObject Projectile = Instantiate(WeaponData._SecondaryProjectile, SecondaryFirePoint.position, SecondaryFirePoint.rotation, null);
+        Projectile.GetComponent<ISecondaryProjectile>().SetDamage(WeaponData._SecondaryProjectileDamage);
         Projectile.GetComponent<Rigidbody>().AddForce(Projectile.transform.forward * WeaponData._SecondaryProjectileForce);
 
         SecondaryCurrentAmmo--;
@@ -157,6 +172,17 @@ public class Weapon : MonoBehaviour
     void RefreshUI()
     {
         UIManager.Instance.RefreshAmmoUI(WeaponData, PrimaryCurrentAmmo, SecondaryCurrentAmmo);
+    }
+
+    public void DoReload()
+    {
+        MainReloading = true;
+        AudioManager.Instance.PlayClipOnce(WeaponData._MainReloadSE, this.gameObject);
+        Invoke("ReloadMain", WeaponData.MainReloadTime);
+
+        SecondaryReloading = true;
+        AudioManager.Instance.PlayClipOnce(WeaponData._SecondaryReloadSE, this.gameObject);
+        Invoke("ReloadSecondary", WeaponData.SecondaryReloadTime);
     }
 
     void ReloadMain()

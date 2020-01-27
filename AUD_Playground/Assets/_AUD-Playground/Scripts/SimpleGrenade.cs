@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleGrenade : MonoBehaviour
+public class SimpleGrenade : MonoBehaviour, ISecondaryProjectile
 {
     public GameObject ExplosionEffect;
     public float ExplosionRadius = 5f;
+    public LayerMask layerMask;
     public float ExplosionPower = 10f;
     public int Damage = 10;
 
@@ -47,7 +48,7 @@ public class SimpleGrenade : MonoBehaviour
     {
         Debug.Log("Explosion!");
         Instantiate(ExplosionEffect, this.transform.position, this.transform.rotation, null);
-        Collider[] colliders = Physics.OverlapSphere(this.transform.position, ExplosionRadius);
+        Collider[] colliders = Physics.OverlapSphere(this.transform.position, ExplosionRadius, layerMask);
 
         foreach (Collider hit in colliders)
         {
@@ -55,7 +56,16 @@ public class SimpleGrenade : MonoBehaviour
 
             if (hit.gameObject.GetComponent<IKillable>() != null)
             {
-                hit.gameObject.GetComponent<IKillable>().OnDamageTaken(Damage);
+                float dist = (Vector3.Distance(this.transform.position, hit.transform.position));
+                int DamageByDistance = Damage;
+
+                if (dist >= 2)
+                {
+                    DamageByDistance -= (int)dist;               
+                }
+
+                Debug.Log("Dealt " + DamageByDistance + " damage");
+                hit.gameObject.GetComponent<IKillable>().OnDamageTaken(DamageByDistance);
             }
 
             if (rb != null)
@@ -69,5 +79,10 @@ public class SimpleGrenade : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.transform.position, ExplosionRadius);        
+    }
+
+    public void SetDamage(int dmg)
+    {
+        Damage = dmg;
     }
 }

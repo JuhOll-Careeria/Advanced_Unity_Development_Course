@@ -1436,6 +1436,9 @@ MonoBehaviour:
   ExplosionEffect: {fileID: 1000013462590818, guid: ecdd96beb7f93494880c052dfccf9dc1,
     type: 3}
   ExplosionRadius: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 819
   ExplosionPower: 1000
   Damage: 10
 --- !u!54 &1377995761075663650

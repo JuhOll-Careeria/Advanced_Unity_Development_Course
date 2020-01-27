@@ -9,17 +9,17 @@ EditorBuildSettings:
     path: Assets/_AUD-Playground/Scenes/Init.unity
     guid: fa96ecfc514bc4041802b6c055cfb33d
   - enabled: 1
-    path: Assets/_AUD-Playground/Scenes/SecondLevel.unity
-    guid: 61d725e13d730af48967cfccbb4c9ad4
-  - enabled: 1
-    path: Assets/_AUD-Playground/Scenes/ThirdLevel.unity
-    guid: d1c3109bdb54ad54c8a2b2838528e640
-  - enabled: 1
-    path: 
-    guid: 755379ce32f77db41b60347948e0a533
-  - enabled: 1
     path: Assets/_AUD-Playground/Scenes/FirstLevel.unity
     guid: ccb7c68ff630137499841ba713e1a981
+  - enabled: 1
+    path: Assets/_AUD-Playground/Scenes/ThirdLevel.unity
+    guid: 61d725e13d730af48967cfccbb4c9ad4
+  - enabled: 1
+    path: Assets/_AUD-Playground/Scenes/FourthLevel.unity
+    guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/_AUD-Playground/Scenes/SecondLevel.unity
+    guid: 2b4bae667a57cc74e843a4eae9966d08
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: d6a3eb16e001fbe4eadc0173a7bf43d7,
       type: 2}

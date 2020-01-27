@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
     GameObject PickedObject;
     bool carrying = false;
+    bool scoping = false;
 
     int currentHealth = 0;
     PlayerData playerData;
@@ -85,6 +86,7 @@ public class PlayerController : MonoBehaviour, IKillable
 
     public void SetScopedFOV(bool t)
     {
+
         if (t)
         {
             GetComponent<FirstPersonAIO>().mouseSensitivity = 0.2f;
@@ -184,6 +186,6 @@ public class PlayerController : MonoBehaviour, IKillable
 
     public void OnDeath()
     {
-        throw new System.NotImplementedException();
+        
     }
 }

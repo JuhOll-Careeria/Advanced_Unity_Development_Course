@@ -49,7 +49,7 @@ MonoBehaviour:
   MainFirePointPS: {fileID: 0}
   LayerMask:
     serializedVersion: 2
-    m_Bits: 51
+    m_Bits: 563
   SecondaryFirePoint: {fileID: 0}
 --- !u!82 &2023990296149917181
 AudioSource:
