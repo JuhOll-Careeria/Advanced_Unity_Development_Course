@@ -12,12 +12,6 @@ using System.Collections;
 
 public class FirstPersonAIO : MonoBehaviour
 {
-
-    #region Script Header and Cosmetics
-    [Header("            Aedan Graves' First Person All-in-One v19.3.19cu", order = 0)]
-    [Space(30, order = 1)]
-    #endregion
-
     #region Variables
 
     [SerializeField] private Animator anim;

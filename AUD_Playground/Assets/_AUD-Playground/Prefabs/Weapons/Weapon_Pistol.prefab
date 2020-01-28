@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1879811204152865182}
   - component: {fileID: 1905189064333562522}
   - component: {fileID: 1896747811841676038}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunTriggerCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 1880133810139436342}
   - component: {fileID: 1905907426438785738}
   - component: {fileID: 1896695288428886632}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunCylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,7 +168,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1875998303523836332}
   - component: {fileID: 1969532217977588822}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon_Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 1879918252570098714}
   - component: {fileID: 1905980436339093916}
   - component: {fileID: 1897680936293195826}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 1876227101943019618}
   - component: {fileID: 1908989380212223996}
   - component: {fileID: 1898105171670625386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 1876089577508714744}
   - component: {fileID: 1905447887908772674}
   - component: {fileID: 1897059964726395286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GunClip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6722649400200140960}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: FirePoint_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000011227296186, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
       propertyPath: m_LocalPosition.x

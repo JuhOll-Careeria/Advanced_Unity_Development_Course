@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,8 +15,11 @@ public class EnemyController : MonoBehaviour, IKillable
     [Header("AI")]
     [SerializeField] float IdleTime = 2f;
     [SerializeField] Collider DetectionCol;
+    [SerializeField] Transform[] PatrolTransforms;
+    List<Vector3> PatrolPoints = new List<Vector3>();
     private bool playerInSight = false;
     private Vector3 playerSightedPosition = Vector3.zero;
+    int currentPatrolIndex = 0;
 
     [Header("On Death")]
     [SerializeField] private GameObject[] DetachablePartsOnDeath;
@@ -38,8 +42,15 @@ public class EnemyController : MonoBehaviour, IKillable
         Agent = GetComponent<NavMeshAgent>();
         RB = GetComponent<Rigidbody>();
         currentHealth = Data.MaxHealth;
-
+        _State = EnemyState.Idle;
+        _IdleTimer = IdleTime;
         DetectionCol.enabled = true;
+
+        foreach (Transform patrolTrans in PatrolTransforms.ToList())
+        {
+            PatrolPoints.Add(patrolTrans.position);
+            Destroy(patrolTrans.gameObject);
+        }
     }
     void FixedUpdate()
     {
@@ -53,9 +64,37 @@ public class EnemyController : MonoBehaviour, IKillable
         {
             case EnemyState.Idle:
                 anim.SetFloat("velocity", 0);
-                break;
-            case EnemyState.Wander:
 
+                if (PatrolPoints.Count <= 0)
+                    break;
+
+                _IdleTimer -= Time.deltaTime;
+
+                if (_IdleTimer <= 0)
+                {
+                    _State = EnemyState.Patrol;
+                    Agent.SetDestination(PatrolPoints[currentPatrolIndex]);
+                    currentPatrolIndex++;
+
+                    if (currentPatrolIndex >= PatrolPoints.Count)
+                    {
+                        currentPatrolIndex = 0;
+                    }
+                }
+
+                break;
+            case EnemyState.Patrol:
+                if (!Agent.pathPending)
+                {
+                    if (Agent.remainingDistance <= Agent.stoppingDistance)
+                    {
+                        if (!Agent.hasPath || Agent.velocity.sqrMagnitude == 0f)
+                        {
+                            _IdleTimer = IdleTime;
+                            _State = EnemyState.Idle;
+                        }
+                    }
+                }
                 break;
             case EnemyState.Chase:
 
@@ -186,7 +225,7 @@ public class EnemyController : MonoBehaviour, IKillable
 public enum EnemyState
 {
     Idle,
-    Wander,
+    Patrol,
     Chase,
     Attack,
     Dead
