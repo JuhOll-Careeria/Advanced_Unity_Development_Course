@@ -282,7 +282,9 @@ MonoBehaviour:
   MuzzleFlash: {fileID: 172055366534176512}
   IdleTime: 2
   DetectionCol: {fileID: 2500926933677289899}
-  PatrolTransforms: []
+  PatrolTransforms:
+  - {fileID: 0}
+  - {fileID: 0}
   DetachablePartsOnDeath:
   - {fileID: 61973457148714831}
   - {fileID: 61973457148714829}

@@ -190,7 +190,6 @@ GameObject:
   m_Component:
   - component: {fileID: 759426141}
   - component: {fileID: 759426140}
-  - component: {fileID: 759426142}
   m_Layer: 0
   m_Name: PostProcessing
   m_TagString: Untagged
@@ -229,25 +228,6 @@ Transform:
   m_Father: {fileID: 8378908063160717037}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &759426142
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 759426139}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ad8a7b2aced995848a159ee7686406e5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7578954690505371819
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -258,6 +238,11 @@ PrefabInstance:
     - target: {fileID: 3914755378359483599, guid: 2e82d9f4c87d1cb4689a9a232c0aa3ab,
         type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4080356753345580680, guid: 2e82d9f4c87d1cb4689a9a232c0aa3ab,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7578954690629431846, guid: 2e82d9f4c87d1cb4689a9a232c0aa3ab,
@@ -451,12 +436,12 @@ PrefabInstance:
         type: 3}
       propertyPath: Levels.Array.data[0].Scene.sceneAsset
       value: 
-      objectReference: {fileID: 102900000, guid: ccb7c68ff630137499841ba713e1a981,
+      objectReference: {fileID: 102900000, guid: 6cc52db9990e44a44b182e170ee9f228,
         type: 3}
     - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
         type: 3}
       propertyPath: Levels.Array.data[0].Scene.scenePath
-      value: Assets/_AUD-Playground/Scenes/FirstLevel.unity
+      value: Assets/_AUD-Playground/Scenes/BaseLevel.unity
       objectReference: {fileID: 0}
     - target: {fileID: 8378908062701290280, guid: c602f5cf27d677241a5bdc45123ce15c,
         type: 3}

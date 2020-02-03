@@ -22,7 +22,18 @@ public class PlayerController : MonoBehaviour, IKillable
     PlayerData playerData;
     float BaseFOV;
 
+    PlayerControls Controls;
+    bool Firing = false;
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
+
+    private void Awake()
+    {
+        Controls = new PlayerControls();
+
+        Controls.Player.Fire.performed += ctx => Firing = true;
+        Controls.Player.Fire.canceled += ctx => Firing = false;
+        Controls.Player.SecondaryFire.performed += ctx => DoSecondaryFire();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -63,30 +74,37 @@ public class PlayerController : MonoBehaviour, IKillable
 
     private void FixedUpdate()
     {
-        if (Weapon.GetWeaponData())
+        if (Firing)
         {
-            if (Input.GetKey(KeyCode.Mouse0))
-            {
-                Weapon.FireMainProjectile();
-            }
+            DoMainFire();
+        }
+    }
 
-            if (Input.GetKeyDown(KeyCode.Mouse1))
-            {
-                if (Weapon.GetWeaponData().SniperScope)
-                {
-                    UIManager.Instance.ToggleSnipeScope();
-                }
-                else
-                {
-                    Weapon.FireSecondaryProjectile();
-                }
-            }
+    void DoMainFire()
+    {
+        if (!Weapon.GetWeaponData())
+            return;
+
+        Weapon.FireMainProjectile();
+    }
+
+    void DoSecondaryFire()
+    {
+        if (!Weapon.GetWeaponData())
+            return;
+
+        if (Weapon.GetWeaponData().SniperScope)
+        {
+            UIManager.Instance.ToggleSnipeScope();
+        }
+        else
+        {
+            Weapon.FireSecondaryProjectile();
         }
     }
 
     public void SetScopedFOV(bool t)
     {
-
         if (t)
         {
             GetComponent<FirstPersonAIO>().mouseSensitivity = 0.2f;
@@ -186,6 +204,16 @@ public class PlayerController : MonoBehaviour, IKillable
 
     public void OnDeath()
     {
-        
+
+    }
+
+    private void OnEnable()
+    {
+        Controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        Controls.Disable();
     }
 }

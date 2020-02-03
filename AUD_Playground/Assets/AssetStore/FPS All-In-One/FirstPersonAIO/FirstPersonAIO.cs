@@ -16,6 +16,10 @@ public class FirstPersonAIO : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
+    PlayerControls Controls;
+    Vector2 LookVector = Vector2.zero;
+    Vector2 MoveVector = Vector2.zero;
+
     #region Input Settings
 
     #endregion
@@ -208,6 +212,14 @@ public class BETA_SETTINGS{
 
     private void Awake()
     {
+        Controls = new PlayerControls();
+
+        Controls.Player.Look.performed += ctx => LookVector = ctx.ReadValue<Vector2>();
+        Controls.Player.Move.performed += ctx => MoveVector = ctx.ReadValue<Vector2>();
+        Controls.Player.Look.canceled += ctx => LookVector = Vector2.zero;
+        Controls.Player.Move.canceled += ctx => MoveVector = Vector2.zero;
+
+
         #region Look Settings - Awake
         originalRotation = transform.localRotation.eulerAngles;
 
@@ -281,10 +293,8 @@ public class BETA_SETTINGS{
 
         if (enableCameraMovement)
         {
-            float mouseXInput;
-            float mouseYInput;
-            mouseXInput = Input.GetAxis("Mouse Y");
-            mouseYInput = Input.GetAxis("Mouse X");
+            float mouseXInput = LookVector.y;
+            float mouseYInput = LookVector.x;
             if (targetAngles.y > 180) { targetAngles.y -= 360; followAngles.y -= 360; } else if (targetAngles.y < -180) { targetAngles.y += 360; followAngles.y += 360; }
             if (targetAngles.x > 180) { targetAngles.x -= 360; followAngles.x -= 360; } else if (targetAngles.x < -180) { targetAngles.x += 360; followAngles.x += 360; }
             targetAngles.y += mouseYInput * mouseSensitivity;
@@ -434,8 +444,8 @@ public class BETA_SETTINGS{
         }
 
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = MoveVector.x;
+        float verticalInput = MoveVector.y;
 
         if (anim != null)
         {
@@ -705,8 +715,14 @@ public class BETA_SETTINGS{
         }
         playerCamera.transform.localPosition = cameraStartingPosition;
     }
+
+    private void OnEnable()
+    {
+        Controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        Controls.Disable();
+    }
 }
-
-
-
-
