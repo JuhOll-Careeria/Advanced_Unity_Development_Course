@@ -209,7 +209,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   enableCameraMovement: 1
   rotationRange: 140
-  mouseSensitivity: 0.05
+  mouseSensitivity: 2
   cameraSmoothing: 2.8
   lockAndHideCursor: 1
   playerCamera: {fileID: 7594873099924347298}
@@ -229,7 +229,6 @@ MonoBehaviour:
   staminaDepletionSpeed: 2
   Stamina: 50
   speed: 0
-  staminaInternal: 0
   _crouchModifiers:
     useCrouch: 1
     CrouchInputAxis: Crouch

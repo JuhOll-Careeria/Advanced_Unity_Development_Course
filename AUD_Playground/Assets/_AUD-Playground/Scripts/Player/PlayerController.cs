@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour, IKillable
 
         Controls.Player.Fire.performed += ctx => Firing = true;
         Controls.Player.Fire.canceled += ctx => Firing = false;
+        Controls.Player.CarryObject.performed += ctx => TryPickup();
+        Controls.Player.ThrowObject.performed += ctx => ThrowObject();
         Controls.Player.SecondaryFire.performed += ctx => DoSecondaryFire();
     }
 
@@ -54,30 +56,17 @@ public class PlayerController : MonoBehaviour, IKillable
     void Update()
     {
         if (carrying)
-        {
             CarryObject();
 
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                DropObject();
-            }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                ThrowObject();
-            }
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            TryPickup();
-        }
+
     }
 
     private void FixedUpdate()
     {
         if (Firing)
-        {
             DoMainFire();
-        }
+
+
     }
 
     void DoMainFire()
@@ -128,6 +117,9 @@ public class PlayerController : MonoBehaviour, IKillable
 
     void DropObject()
     {
+        if (!carrying)
+            return;
+
         carrying = false;
         PickedObject.GetComponent<Rigidbody>().useGravity = true;
         PickedObject = null;
@@ -135,6 +127,9 @@ public class PlayerController : MonoBehaviour, IKillable
 
     void ThrowObject()
     {
+        if (!carrying)
+            return;
+
         Rigidbody ObjectRB = PickedObject.GetComponent<Rigidbody>();
         DropObject();
         ObjectRB.AddForce(PlayerCam.transform.forward * ThrowForce);
@@ -142,6 +137,12 @@ public class PlayerController : MonoBehaviour, IKillable
 
     void TryPickup()
     {
+        if (carrying)
+        {
+            DropObject();
+            return;
+        }
+
         int x = Screen.width / 2;
         int y = Screen.height / 2;
 

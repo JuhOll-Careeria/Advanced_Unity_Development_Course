@@ -6,6 +6,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Collections;
 
+
 [AddComponentMenu("First Person AIO")]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -19,6 +20,7 @@ public class FirstPersonAIO : MonoBehaviour
     PlayerControls Controls;
     Vector2 LookVector = Vector2.zero;
     Vector2 MoveVector = Vector2.zero;
+    bool isJumping = false;
 
     #region Input Settings
 
@@ -66,7 +68,7 @@ public class FirstPersonAIO : MonoBehaviour
     [Tooltip("Determines how quickly the players stamina runs out")] [SerializeField] [Range(0.1f, 9)] private float staminaDepletionSpeed = 2f;
     [Tooltip("Determines how much stamina the player has")] [SerializeField] [Range(0, 100)] private float Stamina = 50;
     [HideInInspector] public float speed;
-    [HideInInspector] public float staminaInternal;
+    private float staminaInternal;
     internal float walkSpeedInternal;
     internal float sprintSpeedInternal;
     internal float jumpPowerInternal;
@@ -112,6 +114,8 @@ public class FirstPersonAIO : MonoBehaviour
     private CapsuleCollider capsule;
     private const float jumpRayLength = 0.7f;
     public bool IsGrounded { get; private set; }
+    public float StaminaInternal { get => staminaInternal; set => staminaInternal = value; }
+
     Vector2 inputXY;
     [HideInInspector] public bool isCrouching;
     bool isSprinting = false;
@@ -210,6 +214,7 @@ public class BETA_SETTINGS{
 
     #endregion
 
+
     private void Awake()
     {
         Controls = new PlayerControls();
@@ -218,6 +223,13 @@ public class BETA_SETTINGS{
         Controls.Player.Move.performed += ctx => MoveVector = ctx.ReadValue<Vector2>();
         Controls.Player.Look.canceled += ctx => LookVector = Vector2.zero;
         Controls.Player.Move.canceled += ctx => MoveVector = Vector2.zero;
+
+        Controls.Player.Jump.performed += ctx => isJumping = true;
+        Controls.Player.Jump.canceled += ctx => isJumping = false;
+        Controls.Player.Crouch.performed += ctx => isCrouching = true;
+        Controls.Player.Crouch.canceled += ctx => isCrouching = false;
+        Controls.Player.Sprint.performed += ctx => isSprinting = true;
+        Controls.Player.Sprint.canceled += ctx => isSprinting = false;
 
 
         #region Look Settings - Awake
@@ -271,7 +283,7 @@ public class BETA_SETTINGS{
         #endregion
 
         #region Movement Settings - Start
-        staminaInternal = Stamina * 10;
+        StaminaInternal = Stamina * 10;
 
         #endregion
 
@@ -321,6 +333,7 @@ public class BETA_SETTINGS{
         #endregion
     }
 
+
     private void FixedUpdate()
     {
         #region Look Settings - FixedUpdate
@@ -332,10 +345,17 @@ public class BETA_SETTINGS{
         bool wasWalking = !isSprinting;
         if (useStamina)
         {
-            if (staminaInternal > 0) { if (!isCrouching) { isSprinting = Input.GetKey(KeyCode.LeftShift); } } else { isSprinting = false; }
-            if (isSprinting == true && staminaInternal > 0) { staminaInternal -= staminaDepletionSpeed; } else if (staminaInternal < (Stamina * 10) && !Input.GetKey(KeyCode.LeftShift)) { staminaInternal += staminaDepletionSpeed / 2; }
+            if (StaminaInternal > 0) { if (isCrouching) { isSprinting = false; } } else { isSprinting = false; }
+
+            if (isSprinting && StaminaInternal > 0)
+            {
+                StaminaInternal -= staminaDepletionSpeed;
+            }
+            else if (StaminaInternal < (Stamina * 10) && !isSprinting)
+            {
+                StaminaInternal += staminaDepletionSpeed / 2;
+            }
         }
-        else { isSprinting = Input.GetKey(KeyCode.LeftShift); }
 
         advanced.tooSteep = false;
         float inrSprintSpeed;
@@ -457,13 +477,15 @@ public class BETA_SETTINGS{
         if (inputXY.magnitude > 1) { inputXY.Normalize(); }
 
         float yv = fps_Rigidbody.velocity.y;
-        bool didJump = canHoldJump ? Input.GetButton("Jump") : Input.GetButtonDown("Jump");
 
-        if (IsGrounded && didJump && jumpPowerInternal > 0)
+        if (IsGrounded && isJumping && jumpPowerInternal > 0)
         {
+
             yv += jumpPowerInternal;
             IsGrounded = false;
-            didJump = false;
+
+            if (!canHoldJump)
+                isJumping = false;
         }
 
         if (playerCanMove)
@@ -487,8 +509,6 @@ public class BETA_SETTINGS{
 
         if (_crouchModifiers.useCrouch && _crouchModifiers.CrouchInputAxis != string.Empty)
         {
-            isCrouching = _crouchModifiers.crouchOverride ? true : Input.GetAxis(_crouchModifiers.CrouchInputAxis) > 0;
-
             if (isCrouching)
             {
                 capsule.height = Mathf.MoveTowards(capsule.height, _crouchModifiers.colliderHeight / 2, 5 * Time.deltaTime);
