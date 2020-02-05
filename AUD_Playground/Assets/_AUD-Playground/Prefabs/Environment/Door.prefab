@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 187700060071653308}
   - component: {fileID: 187700060071653299}
   - component: {fileID: 187700060071653298}
+  - component: {fileID: 4753052350175050147}
   m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
@@ -334,6 +335,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!208 &4753052350175050147
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187700060071653296}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.07700001, y: 1.044, z: 1.7580001}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &187700060293216433
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,9 +375,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187700060293216433}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15, y: -1, z: -1.7907}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7979071, y: 1.7979071, z: 1.7979071}
   m_Children:
   - {fileID: 187700060694799941}
   m_Father: {fileID: 0}

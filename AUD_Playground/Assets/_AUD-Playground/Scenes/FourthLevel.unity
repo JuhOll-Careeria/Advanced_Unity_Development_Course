@@ -8509,7 +8509,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-32174
+  m_Name: pb_Mesh-44164
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -9738,7 +9738,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-32194
+  m_Name: pb_Mesh-44184
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -36716,21 +36716,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7565031520129912474, guid: d412ed731f17d7841b1137dcbb18136c,
-        type: 3}
-      propertyPath: useStamina
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7565031520129912474, guid: d412ed731f17d7841b1137dcbb18136c,
-        type: 3}
-      propertyPath: Stamina
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7565031520129912474, guid: d412ed731f17d7841b1137dcbb18136c,
-        type: 3}
-      propertyPath: mouseSensitivity
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7594926670550662006, guid: d412ed731f17d7841b1137dcbb18136c,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -172,6 +172,7 @@ GameObject:
   - component: {fileID: 7533767688500627270}
   - component: {fileID: 1534853474282916619}
   - component: {fileID: 7595695636088610952}
+  - component: {fileID: 1839037944}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -218,7 +219,7 @@ MonoBehaviour:
   spineRoot: {fileID: 0}
   autoCrosshair: 1
   Crosshair: {fileID: 21300000, guid: 5c94369ecf23e184bb721e6ce700cb39, type: 3}
-  targetAngles: {x: 0, y: 0, z: 0}
+  targetAngles: {x: -8.200012, y: -155.35013, z: 0}
   followAngles: {x: 0, y: 0, z: 0}
   playerCanMove: 1
   walkByDefault: 1
@@ -229,7 +230,7 @@ MonoBehaviour:
   useStamina: 0
   staminaDepletionSpeed: 2
   Stamina: 50
-  speed: 0
+  speed: 4
   _crouchModifiers:
     useCrouch: 1
     CrouchInputAxis: Crouch
@@ -275,16 +276,16 @@ MonoBehaviour:
     maxSlopeAngle: 70
     tooSteep: 0
   isCrouching: 0
-  fps_Rigidbody: {fileID: 0}
-  useHeadbob: 0
+  fps_Rigidbody: {fileID: 7613541637776880300}
+  useHeadbob: 1
   head: {fileID: 7595220596321386632}
   headbobFrequency: 1.5
-  headbobSwayAngle: 5
-  headbobHeight: 2
-  headbobSideMovement: 2
+  headbobSwayAngle: 1
+  headbobHeight: 1
+  headbobSideMovement: 1
   headbobSpeedMultiplier: 3
-  useJumdLandMovement: 1
-  jumpAngle: 3
+  useJumdLandMovement: 0
+  jumpAngle: 1.39
   landAngle: 60
   Volume: 5
   jumpSound: {fileID: 0}
@@ -358,9 +359,9 @@ MonoBehaviour:
   WeaponRoot: {fileID: 9198439157014226745}
   Weapon: {fileID: 2824582754042223996}
   PlayerCam: {fileID: 7575322973278330106}
-  PickUpDist: 5
+  PickUpDist: 3
   CarryDistance: 1.5
-  CarrySmooth: 6
+  CarrySmooth: 10
   ThrowForce: 2000
 --- !u!82 &7515538822688364870
 AudioSource:
@@ -535,6 +536,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!136 &1839037944
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7597404336309690972}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9198439157014226745
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,8 +611,7 @@ AudioSource:
   m_GameObject: {fileID: 9198439157014226745}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -7304943072360715365, guid: 5b0faaf4eecf7f24ea9238e7595b13d9,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Collections;
-
+using UnityEngine.InputSystem;
 
 [AddComponentMenu("First Person AIO")]
 [RequireComponent(typeof(Rigidbody))]
@@ -215,14 +215,11 @@ public class BETA_SETTINGS{
 
     #endregion
 
-
     private void Awake()
     {
         Controls = new PlayerControls();
 
-        Controls.Player.Look.performed += ctx => LookVector = ctx.ReadValue<Vector2>();
         Controls.Player.Move.performed += ctx => MoveVector = ctx.ReadValue<Vector2>();
-        Controls.Player.Look.canceled += ctx => LookVector = Vector2.zero;
         Controls.Player.Move.canceled += ctx => MoveVector = Vector2.zero;
 
         Controls.Player.Jump.performed += ctx => isJumping = true;
@@ -306,6 +303,11 @@ public class BETA_SETTINGS{
 
         if (enableCameraMovement)
         {
+            LookVector = Controls.Player.Look.ReadValue<Vector2>();
+
+            LookVector *= 0.5f; // Account for scaling applied directly in Windows code by old input system. TL;DR => Magic Value to for the new Input system mouse movement to feel like the old system
+            LookVector *= 0.1f; // Account for sensitivity setting on old Mouse X and Y axes. TL;DR => Magic Value to for the new Input system mouse movement to feel like the old system
+
             float mouseXInput = LookVector.y;
             float mouseYInput = LookVector.x;
             if (targetAngles.y > 180) { targetAngles.y -= 360; followAngles.y -= 360; } else if (targetAngles.y < -180) { targetAngles.y += 360; followAngles.y += 360; }
