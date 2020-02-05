@@ -213,6 +213,7 @@ MonoBehaviour:
   cameraSmoothing: 2.8
   lockAndHideCursor: 1
   playerCamera: {fileID: 7594873099924347298}
+  playerWeaponRef: {fileID: 7002736524719299283}
   enableCameraShake: 1
   spineRoot: {fileID: 0}
   autoCrosshair: 1
@@ -545,6 +546,7 @@ GameObject:
   - component: {fileID: 7002736524719299283}
   - component: {fileID: 2824582754042223996}
   - component: {fileID: 4135869626590187774}
+  - component: {fileID: 8067851051740998622}
   m_Layer: 8
   m_Name: Weapon
   m_TagString: Untagged
@@ -594,7 +596,8 @@ AudioSource:
   m_GameObject: {fileID: 9198439157014226745}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -7304943072360715365, guid: 5b0faaf4eecf7f24ea9238e7595b13d9,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -681,3 +684,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8067851051740998622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9198439157014226745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bdb4b26a76866e429f5b5372c2a2539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sway: 0.055
+  SwayMax: 0.09
+  SwaySmooth: 3

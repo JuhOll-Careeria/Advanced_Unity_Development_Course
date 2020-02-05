@@ -36,6 +36,7 @@ public class FirstPersonAIO : MonoBehaviour
     [Tooltip("Mouse Smoothness.")] [Range(1, 100)] public float cameraSmoothing = 5f;
     [Tooltip("For Debuging or if You don't plan on having a pause menu or quit button.")] public bool lockAndHideCursor = false;
     [Tooltip("Camera that you wish to rotate.")] public Transform playerCamera;
+    [Tooltip("Weapon Transform that you wish to rotate.")] public Transform playerWeaponRef;
     [Tooltip("Call this Coroutine externaly with duration ranging from 0.01 to 1, and a magnitude of 0.01 to 0.5.")] public bool enableCameraShake = false;
     internal Vector3 cameraStartingPosition;
 

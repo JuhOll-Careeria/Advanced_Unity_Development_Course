@@ -18,7 +18,7 @@ MonoBehaviour:
   _MainFireCD: 0.2
   _MainFireSE:
     volume: 0.1
-    spatialBlend: 1
+    spatialBlend: 0
     clips:
     - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
     - {fileID: 8300000, guid: e7ea0dec9d0dcc54fbc30bf14fc72356, type: 3}
@@ -26,11 +26,13 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a08177706510a6346a8733e4f2284734, type: 3}
   _MainReloadSE:
     volume: 0.2
-    spatialBlend: 1
+    spatialBlend: 0
     clips:
     - {fileID: 8300000, guid: f9ac29879777a454cbd5724255106dd1, type: 3}
   MainMaxAmmo: 12
-  MainReloadTime: 2
+  MainReloadTime: 1.5
+  SniperScope: 0
+  ScopedZoomFOV: 20
   _UseSecondaryFire: 0
   _SecondaryProjectile: {fileID: 0}
   _SecondaryProjectileDamage: 0

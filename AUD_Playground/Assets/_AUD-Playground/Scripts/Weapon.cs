@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
     private bool SecondaryReloading = false;
     private int SecondaryCurrentAmmo = 0;
 
+    Animator WeaponAnimator; 
     GameObject CurrentWeaponMesh = null;
 
     public WeaponData GetWeaponData()
@@ -69,6 +70,7 @@ public class Weapon : MonoBehaviour
                 MainFirePointPS = trans.GetComponent<ParticleSystem>();                    
         }
 
+        WeaponAnimator = CurrentWeaponMesh.GetComponent<Animator>();
         PrimaryCurrentAmmo = data.MainMaxAmmo;
         SecondaryCurrentAmmo = data.SecondaryMaxAmmo;
         RefreshUI();
@@ -87,10 +89,12 @@ public class Weapon : MonoBehaviour
 
         AudioManager.Instance.PlayClipOnce(WeaponData._MainFireSE, this.gameObject);
         MainFirePointPS.Play();
+        WeaponAnimator.CrossFadeInFixedTime("Fire", 1, 0);
 
         // Do reload instead of setting MainOnCD to true
         if (PrimaryCurrentAmmo <= 0)
         {
+            WeaponAnimator.CrossFadeInFixedTime("Reload", 1, 0);
             MainReloading = true;
             AudioManager.Instance.PlayClipOnce(WeaponData._MainReloadSE, this.gameObject);
             Invoke("ReloadMain", WeaponData.MainReloadTime);
@@ -142,7 +146,7 @@ public class Weapon : MonoBehaviour
 
     public void FireSecondaryProjectile()
     {
-        if (SecondaryOnCD || !WeaponData._UseSecondaryFire || SecondaryReloading)
+        if (SecondaryOnCD || !WeaponData._UseSecondaryFire || SecondaryReloading || MainReloading)
             return;
 
 
@@ -176,6 +180,8 @@ public class Weapon : MonoBehaviour
 
     public void DoReload()
     {
+        WeaponAnimator.CrossFadeInFixedTime("Reload", 1, 0);
+
         MainReloading = true;
         AudioManager.Instance.PlayClipOnce(WeaponData._MainReloadSE, this.gameObject);
         Invoke("ReloadMain", WeaponData.MainReloadTime);

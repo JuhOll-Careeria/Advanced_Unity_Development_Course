@@ -534,6 +534,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8473982398508527552, guid: 156df1f31d2e09845a18d3ef7d712260,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8449644755801449362, guid: 5b0faaf4eecf7f24ea9238e7595b13d9,
+        type: 2}
     - target: {fileID: 8473982398508527554, guid: 156df1f31d2e09845a18d3ef7d712260,
         type: 3}
       propertyPath: MetalImpact.clips.Array.size
