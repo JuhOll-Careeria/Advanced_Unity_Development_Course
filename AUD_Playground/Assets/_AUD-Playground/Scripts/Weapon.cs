@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
     private bool SecondaryReloading = false;
     private int SecondaryCurrentAmmo = 0;
 
-    Animator WeaponAnimator; 
+    Animator WeaponAnimator;
     GameObject CurrentWeaponMesh = null;
 
     public WeaponData GetWeaponData()
@@ -66,8 +66,8 @@ public class Weapon : MonoBehaviour
             if (trans.name.Equals("FirePoint_Secondary") && data._UseSecondaryFire)
                 SecondaryFirePoint = trans;
 
-            if (trans.GetComponent<ParticleSystem>())            
-                MainFirePointPS = trans.GetComponent<ParticleSystem>();                    
+            if (trans.GetComponent<ParticleSystem>())
+                MainFirePointPS = trans.GetComponent<ParticleSystem>();
         }
 
         WeaponAnimator = CurrentWeaponMesh.GetComponent<Animator>();
@@ -180,15 +180,21 @@ public class Weapon : MonoBehaviour
 
     public void DoReload()
     {
-        WeaponAnimator.CrossFadeInFixedTime("Reload", 1, 0);
 
-        MainReloading = true;
-        AudioManager.Instance.PlayClipOnce(WeaponData._MainReloadSE, this.gameObject);
-        Invoke("ReloadMain", WeaponData.MainReloadTime);
+        if (!MainReloading)
+        {
+            WeaponAnimator.CrossFadeInFixedTime("Reload", 1, 0);
+            MainReloading = true;
+            AudioManager.Instance.PlayClipOnce(WeaponData._MainReloadSE, this.gameObject);
+            Invoke("ReloadMain", WeaponData.MainReloadTime);
+        }
 
-        SecondaryReloading = true;
-        AudioManager.Instance.PlayClipOnce(WeaponData._SecondaryReloadSE, this.gameObject);
-        Invoke("ReloadSecondary", WeaponData.SecondaryReloadTime);
+        if (!SecondaryReloading)
+        {
+            SecondaryReloading = true;
+            AudioManager.Instance.PlayClipOnce(WeaponData._SecondaryReloadSE, this.gameObject);
+            Invoke("ReloadSecondary", WeaponData.SecondaryReloadTime);
+        }
     }
 
     void ReloadMain()
