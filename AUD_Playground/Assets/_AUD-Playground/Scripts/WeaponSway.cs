@@ -20,7 +20,7 @@ public class WeaponSway : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         float factorX = Input.GetAxis("Mouse X") * Sway;
         float factorY = Input.GetAxis("Mouse Y") * Sway;

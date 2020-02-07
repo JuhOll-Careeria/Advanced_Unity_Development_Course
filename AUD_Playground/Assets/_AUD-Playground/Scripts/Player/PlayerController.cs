@@ -55,17 +55,15 @@ public class PlayerController : MonoBehaviour, IKillable
 
     void Update()
     {
-        if (carrying)
-            CarryObject();
-
+        if (Firing)
+            DoMainFire();
 
     }
 
     private void FixedUpdate()
     {
-        if (Firing)
-            DoMainFire();
-
+        if (carrying)
+            CarryObject();
 
     }
 
