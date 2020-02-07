@@ -227,7 +227,7 @@ MonoBehaviour:
   sprintSpeed: 8
   jumpPower: 5
   canHoldJump: 0
-  useStamina: 0
+  useStamina: 1
   staminaDepletionSpeed: 2
   Stamina: 50
   speed: 4
@@ -372,7 +372,8 @@ AudioSource:
   m_GameObject: {fileID: 7597404336309690972}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

@@ -46,7 +46,8 @@ public class LevelManager : Singleton<LevelManager>
         PostProcessVolume.sharedProfile.TryGet(out lensDistortion);
         chromaticAberration.intensity.value = 0;
         lensDistortion.intensity.value = 0;
-        LoadLevel(Levels[0].Scene);
+        SceneManager.sceneLoaded += OnLevelLoaded;
+        LoadMainMenu();
     }
 
     /// <summary>
@@ -65,9 +66,28 @@ public class LevelManager : Singleton<LevelManager>
         }
     }
 
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(MainMenu.Scene);
+    }
+
     public void LoadLevel(SceneReference scene)
     {
         SceneManager.LoadScene(scene);
+    }
+
+    void OnLevelLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.path == MainMenu.Scene.ScenePath)
+        {
+            UIManager.Instance.ToggleHUD(false);
+            UIManager.Instance.ToggleOptionsUI(true);
+        }
+        else
+        {
+            UIManager.Instance.ToggleHUD(true);
+            UIManager.Instance.ToggleOptionsUI(false);
+        }
     }
 
     /// <summary>

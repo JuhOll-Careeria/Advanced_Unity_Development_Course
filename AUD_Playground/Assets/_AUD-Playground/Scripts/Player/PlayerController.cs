@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour, IKillable
     PlayerData playerData;
     float BaseFOV;
 
+    FirstPersonAIO PlayerInput;
     PlayerControls Controls;
     bool Firing = false;
     public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
@@ -43,6 +44,9 @@ public class PlayerController : MonoBehaviour, IKillable
         GameManager.Instance.Player = this.gameObject;
         playerData = GameManager.Instance.GetPlayerData();
         currentHealth = playerData.MaxHealth;
+        PlayerInput = GetComponent<FirstPersonAIO>();
+        PlayerInput.Stamina = playerData.MaxStamina;
+        PlayerInput.CurrentStamina = PlayerInput.Stamina * 10;
 
         if (playerData.EquippedWeapon != null)
         {
@@ -51,6 +55,8 @@ public class PlayerController : MonoBehaviour, IKillable
 
         PlayerCam = GetComponentInChildren<Camera>();
         BaseFOV = PlayerCam.fieldOfView;
+
+        UIManager.Instance.RefreshHealth(currentHealth);
     }
 
     void Update()
@@ -195,15 +201,18 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         CurrentHealth -= dmgValue;
 
+        UIManager.Instance.RefreshHealth(currentHealth);
+
         if (CurrentHealth <= 0)
         {
-            OnDeath();
+            Invoke("OnDeath", 1);
         }
     }
 
     public void OnDeath()
     {
-
+        PlayerInput.lockAndHideCursor = false;
+        LevelManager.Instance.LoadMainMenu();
     }
 
     private void OnEnable()

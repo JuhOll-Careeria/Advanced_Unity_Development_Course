@@ -19,12 +19,16 @@ MonoBehaviour:
   _MainFireSE:
     volume: 0.2
     spatialBlend: 0
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips:
     - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
     - {fileID: 8300000, guid: e7ea0dec9d0dcc54fbc30bf14fc72356, type: 3}
   _MainReloadSE:
     volume: 0.2
     spatialBlend: 0
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips:
     - {fileID: 8300000, guid: f9ac29879777a454cbd5724255106dd1, type: 3}
   MainMaxAmmo: 1
@@ -39,10 +43,13 @@ MonoBehaviour:
   _SecondaryFireSE:
     volume: 0
     spatialBlend: 0
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips: []
   _SecondaryReloadSE:
     volume: 0
     spatialBlend: 0
+    Mixer: {fileID: 0}
     clips: []
   SecondaryMaxAmmo: 0
   SecondaryReloadTime: 0

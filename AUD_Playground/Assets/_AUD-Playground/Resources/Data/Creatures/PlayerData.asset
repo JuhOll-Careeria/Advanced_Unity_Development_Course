@@ -13,14 +13,19 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   Name: Player
-  MaxHealth: 50
+  MaxHealth: 100
   Armor: 5
   OnHitSound:
     volume: 0
     spatialBlend: 0
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips: []
   OnDeathSound:
     volume: 0
     spatialBlend: 0
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips: []
-  EquippedWeapon: {fileID: 0}
+  EquippedWeapon: {fileID: 11400000, guid: 37efddaf7e8932b43aabc57781c2f908, type: 2}
+  MaxStamina: 50

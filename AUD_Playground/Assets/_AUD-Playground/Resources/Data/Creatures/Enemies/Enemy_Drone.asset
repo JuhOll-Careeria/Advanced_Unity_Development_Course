@@ -18,6 +18,8 @@ MonoBehaviour:
   OnHitSound:
     volume: 0.3
     spatialBlend: 1
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips:
     - {fileID: 8300000, guid: 66ffe5981b5bc8b48be3ae78c31a2726, type: 3}
     - {fileID: 8300000, guid: 7b17efae4b7eb0b43b1f8b3c6e085a93, type: 3}
@@ -25,6 +27,8 @@ MonoBehaviour:
   OnDeathSound:
     volume: 0.3
     spatialBlend: 1
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips:
     - {fileID: 8300000, guid: 7b17efae4b7eb0b43b1f8b3c6e085a93, type: 3}
     - {fileID: 8300000, guid: 66ffe5981b5bc8b48be3ae78c31a2726, type: 3}
@@ -35,6 +39,8 @@ MonoBehaviour:
   AttackSE:
     volume: 0.3
     spatialBlend: 1
+    Mixer: {fileID: -2787500646018107808, guid: e0793daaad1d1d540b304705d598f424,
+      type: 2}
     clips:
     - {fileID: 8300000, guid: f6ea9ba73093d8f438b68c3ae2327732, type: 3}
   ProjectilePrefab: {fileID: 2734615846414680972, guid: be070b3ebf489aa41b66a88a1ab2b08e,

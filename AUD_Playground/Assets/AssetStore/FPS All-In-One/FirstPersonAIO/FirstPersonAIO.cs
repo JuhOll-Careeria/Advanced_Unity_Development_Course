@@ -67,9 +67,9 @@ public class FirstPersonAIO : MonoBehaviour
     [Tooltip("Determines if the jump button needs to be pressed down to jump, or if the player can hold the jump button to automaticly jump every time the it hits the ground.")] public bool canHoldJump;
     [Tooltip("Determines whether to use Stamina or not.")] [SerializeField] private bool useStamina = true;
     [Tooltip("Determines how quickly the players stamina runs out")] [SerializeField] [Range(0.1f, 9)] private float staminaDepletionSpeed = 2f;
-    [Tooltip("Determines how much stamina the player has")] [SerializeField] [Range(0, 100)] private float Stamina = 50;
+    [Tooltip("Determines how much stamina the player has")] [Range(0, 100)] public float Stamina = 50;
     [HideInInspector] public float speed;
-    private float staminaInternal;
+    float currentStamina;
     internal float walkSpeedInternal;
     internal float sprintSpeedInternal;
     internal float jumpPowerInternal;
@@ -115,7 +115,7 @@ public class FirstPersonAIO : MonoBehaviour
     private CapsuleCollider capsule;
     private const float jumpRayLength = 0.7f;
     public bool IsGrounded { get; private set; }
-    public float StaminaInternal { get => staminaInternal; set => staminaInternal = value; }
+    public float CurrentStamina { get => currentStamina; set => currentStamina = value; }
 
     Vector2 inputXY;
     [HideInInspector] public bool isCrouching;
@@ -281,7 +281,7 @@ public class BETA_SETTINGS{
         #endregion
 
         #region Movement Settings - Start
-        StaminaInternal = Stamina * 10;
+        //CurrentStamina = Stamina * 10;
 
         #endregion
 
@@ -348,17 +348,19 @@ public class BETA_SETTINGS{
         bool wasWalking = !isSprinting;
         if (useStamina)
         {
-            if (StaminaInternal > 0) { if (isCrouching) { isSprinting = false; } } else { isSprinting = false; }
+            if (CurrentStamina > 0) { if (isCrouching) { isSprinting = false; } } else { isSprinting = false; }
 
-            if (isSprinting && StaminaInternal > 0)
+            if (isSprinting && CurrentStamina > 0)
             {
-                StaminaInternal -= staminaDepletionSpeed;
+                CurrentStamina -= staminaDepletionSpeed;
             }
-            else if (StaminaInternal < (Stamina * 10) && !isSprinting)
+            else if (CurrentStamina < (Stamina * 10) && !isSprinting)
             {
-                StaminaInternal += staminaDepletionSpeed / 2;
+                CurrentStamina += staminaDepletionSpeed / 2;
             }
         }
+
+        UIManager.Instance.RefreshStamina(CurrentStamina);
 
         advanced.tooSteep = false;
         float inrSprintSpeed;

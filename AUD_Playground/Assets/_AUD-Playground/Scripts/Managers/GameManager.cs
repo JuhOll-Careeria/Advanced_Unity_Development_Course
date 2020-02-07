@@ -59,4 +59,9 @@ public class GameManager : Singleton<GameManager>
     {
         Player.GetComponent<FirstPersonAIO>().playerCanMove = t;
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
