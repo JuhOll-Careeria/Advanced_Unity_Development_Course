@@ -53,16 +53,6 @@ public class UIManager : Singleton<UIManager>
         PostProcessVolume.sharedProfile.TryGet(out _Bloom);
         ToggleBloom();
         ToggleMotionBlur();
-
-        List<TMP_Dropdown.OptionData> optionsData = new List<TMP_Dropdown.OptionData>();
-        foreach (Resolution res in Screen.resolutions)
-        {
-            TMP_Dropdown.OptionData option = new TMP_Dropdown.OptionData();
-            option.text = res.width + " x " + res.height;
-            optionsData.Add(option);
-        }
-
-        ResolutionDropDown.AddOptions(optionsData);
     }
 
     public void ToggleSnipeScope()
@@ -87,11 +77,6 @@ public class UIManager : Singleton<UIManager>
     public void ToggleBloom()
     {
         _Bloom.active = BloomToggle.isOn;
-    }
-
-    public void ChangeResolution()
-    {
-        Screen.SetResolution(Screen.resolutions[ResolutionDropDown.value].width, Screen.resolutions[ResolutionDropDown.value].height, Screen.fullScreen);
     }
 
     public void ChangeQuality()

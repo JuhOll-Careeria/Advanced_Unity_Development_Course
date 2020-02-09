@@ -7,8 +7,13 @@
 public class PlayerData : CreatureData
 {
     [Header("Player Data")]
-    public WeaponData EquippedWeapon = null;
     [Range(0, 100)]
     public int MaxStamina = 50;
+
+    // Data we want to transfer over between scenes
+    [HideInInspector] public WeaponData EquippedWeapon = null;
+    [HideInInspector] public int CurrentHealth = 0;
+
+
 
 }

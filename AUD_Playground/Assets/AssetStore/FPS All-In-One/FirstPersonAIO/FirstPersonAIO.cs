@@ -17,7 +17,7 @@ public class FirstPersonAIO : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
-    PlayerControls Controls;
+    [HideInInspector] public PlayerControls Controls;
     Vector2 LookVector = Vector2.zero;
     Vector2 MoveVector = Vector2.zero;
     bool isJumping = false;

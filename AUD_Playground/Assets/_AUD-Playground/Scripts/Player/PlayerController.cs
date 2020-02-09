@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour, IKillable
     bool carrying = false;
     bool scoping = false;
 
+    bool inputsActive = true;
+
     int currentHealth = 0;
     PlayerData playerData;
     float BaseFOV;
@@ -25,8 +27,26 @@ public class PlayerController : MonoBehaviour, IKillable
     FirstPersonAIO PlayerInput;
     PlayerControls Controls;
     bool Firing = false;
-    public int CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public int CurrentHealth { get => playerData.CurrentHealth; set => playerData.CurrentHealth = value; }
+    public bool InputsActive
+    {
+        get { return inputsActive; }
+        set
+        {
+            inputsActive = value;
 
+            if (value)
+            {
+                Controls.Enable();
+                PlayerInput.Controls.Enable();
+            }
+            else
+            {
+                Controls.Disable();
+                PlayerInput.Controls.Disable();
+            }
+        }
+    }
     private void Awake()
     {
         Controls = new PlayerControls();
@@ -43,7 +63,6 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         GameManager.Instance.Player = this.gameObject;
         playerData = GameManager.Instance.GetPlayerData();
-        currentHealth = playerData.MaxHealth;
         PlayerInput = GetComponent<FirstPersonAIO>();
         PlayerInput.Stamina = playerData.MaxStamina;
         PlayerInput.CurrentStamina = PlayerInput.Stamina * 10;
@@ -56,7 +75,7 @@ public class PlayerController : MonoBehaviour, IKillable
         PlayerCam = GetComponentInChildren<Camera>();
         BaseFOV = PlayerCam.fieldOfView;
 
-        UIManager.Instance.RefreshHealth(currentHealth);
+        UIManager.Instance.RefreshHealth(CurrentHealth);
     }
 
     void Update()
@@ -201,7 +220,7 @@ public class PlayerController : MonoBehaviour, IKillable
     {
         CurrentHealth -= dmgValue;
 
-        UIManager.Instance.RefreshHealth(currentHealth);
+        UIManager.Instance.RefreshHealth(CurrentHealth);
 
         if (CurrentHealth <= 0)
         {
@@ -211,7 +230,6 @@ public class PlayerController : MonoBehaviour, IKillable
 
     public void OnDeath()
     {
-        PlayerInput.lockAndHideCursor = false;
         LevelManager.Instance.LoadMainMenu();
     }
 

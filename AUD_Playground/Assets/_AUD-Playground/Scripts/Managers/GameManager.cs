@@ -11,9 +11,10 @@ public class GameManager : Singleton<GameManager>
 
     private GameObject playerReference;
 
-    private void Start()
+    private void Awake()
     {
         PlayerData.EquippedWeapon = null;
+        PlayerData.CurrentHealth = PlayerData.MaxHealth;
     }
 
     public PlayerData GetPlayerData()
@@ -55,9 +56,9 @@ public class GameManager : Singleton<GameManager>
         public GameObject BulletHolePrefab;
     }
 
-    public void TogglePlayerMovement(bool t)
+    public void TogglePlayerInput(bool t)
     {
-        Player.GetComponent<FirstPersonAIO>().playerCanMove = t;
+        Player.GetComponent<PlayerController>().InputsActive = t;
     }
 
     public void ExitGame()

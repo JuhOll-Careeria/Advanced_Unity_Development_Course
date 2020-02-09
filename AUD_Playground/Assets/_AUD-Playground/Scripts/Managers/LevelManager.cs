@@ -80,6 +80,8 @@ public class LevelManager : Singleton<LevelManager>
     {
         if (scene.path == MainMenu.Scene.ScenePath)
         {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
             UIManager.Instance.ToggleHUD(false);
             UIManager.Instance.ToggleOptionsUI(true);
         }
@@ -121,7 +123,7 @@ public class LevelManager : Singleton<LevelManager>
     void DoPortalEffect()
     {
         UsingPortal = true;
-        GameManager.Instance.TogglePlayerMovement(false);
+        GameManager.Instance.TogglePlayerInput(false);
         Invoke("LoadLevel", PortalEffectDuration);
     }
 
@@ -131,7 +133,7 @@ public class LevelManager : Singleton<LevelManager>
     void LoadLevel()
     {
         UsingPortal = false;
-        GameManager.Instance.TogglePlayerMovement(true);
+        GameManager.Instance.TogglePlayerInput(true);
         LoadLevel(PortalSceneReference);
     }
 }
