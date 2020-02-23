@@ -68,6 +68,7 @@ public class LevelManager : Singleton<LevelManager>
 
     public void LoadMainMenu()
     {
+        GameManager.Instance.GetPlayerData().CurrentHealth = GameManager.Instance.GetPlayerData().MaxHealth;
         SceneManager.LoadScene(MainMenu.Scene);
     }
 

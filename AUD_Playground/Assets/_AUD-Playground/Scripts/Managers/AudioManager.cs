@@ -54,11 +54,12 @@ public class AudioManager : Singleton<AudioManager>
         // Hae source -GameObjectista "AudioSource"
         AudioSource SourceAS = source.GetComponent<AudioSource>();
 
-        SourceAS.outputAudioMixerGroup = effect.Mixer;
-
         // Mikäli AudioSource komponenttia ei ole olemassa "source" objektissa, luo AudioSource komponentti sille
         if (SourceAS == null)
             SourceAS = source.AddComponent<AudioSource>();
+
+
+        SourceAS.outputAudioMixerGroup = effect.Mixer;
 
         // Aseta GameObjektin AudioSourcelle spatialBlend samaan, mitä "effect":tiin on asetettu
         SourceAS.spatialBlend = effect.spatialBlend;
