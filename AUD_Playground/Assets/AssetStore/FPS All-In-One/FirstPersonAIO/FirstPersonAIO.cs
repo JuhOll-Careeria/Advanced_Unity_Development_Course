@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 [AddComponentMenu("First Person AIO")]
 [RequireComponent(typeof(Rigidbody))]
@@ -12,15 +13,14 @@ using System.Collections;
 
 public class FirstPersonAIO : MonoBehaviour
 {
-
-    #region Script Header and Cosmetics
-    [Header("            Aedan Graves' First Person All-in-One v19.3.19cu", order = 0)]
-    [Space(30, order = 1)]
-    #endregion
-
     #region Variables
 
     [SerializeField] private Animator anim;
+
+    [HideInInspector] public PlayerControls Controls;
+    Vector2 LookVector = Vector2.zero;
+    Vector2 MoveVector = Vector2.zero;
+    bool isJumping = false;
 
     #region Input Settings
 
@@ -36,6 +36,7 @@ public class FirstPersonAIO : MonoBehaviour
     [Tooltip("Mouse Smoothness.")] [Range(1, 100)] public float cameraSmoothing = 5f;
     [Tooltip("For Debuging or if You don't plan on having a pause menu or quit button.")] public bool lockAndHideCursor = false;
     [Tooltip("Camera that you wish to rotate.")] public Transform playerCamera;
+    [Tooltip("Weapon Transform that you wish to rotate.")] public Transform playerWeaponRef;
     [Tooltip("Call this Coroutine externaly with duration ranging from 0.01 to 1, and a magnitude of 0.01 to 0.5.")] public bool enableCameraShake = false;
     internal Vector3 cameraStartingPosition;
 
@@ -66,9 +67,9 @@ public class FirstPersonAIO : MonoBehaviour
     [Tooltip("Determines if the jump button needs to be pressed down to jump, or if the player can hold the jump button to automaticly jump every time the it hits the ground.")] public bool canHoldJump;
     [Tooltip("Determines whether to use Stamina or not.")] [SerializeField] private bool useStamina = true;
     [Tooltip("Determines how quickly the players stamina runs out")] [SerializeField] [Range(0.1f, 9)] private float staminaDepletionSpeed = 2f;
-    [Tooltip("Determines how much stamina the player has")] [SerializeField] [Range(0, 100)] private float Stamina = 50;
+    [Tooltip("Determines how much stamina the player has")] [Range(0, 100)] public float Stamina = 50;
     [HideInInspector] public float speed;
-    [HideInInspector] public float staminaInternal;
+    float currentStamina;
     internal float walkSpeedInternal;
     internal float sprintSpeedInternal;
     internal float jumpPowerInternal;
@@ -114,6 +115,8 @@ public class FirstPersonAIO : MonoBehaviour
     private CapsuleCollider capsule;
     private const float jumpRayLength = 0.7f;
     public bool IsGrounded { get; private set; }
+    public float CurrentStamina { get => currentStamina; set => currentStamina = value; }
+
     Vector2 inputXY;
     [HideInInspector] public bool isCrouching;
     bool isSprinting = false;
@@ -214,6 +217,19 @@ public class BETA_SETTINGS{
 
     private void Awake()
     {
+        Controls = new PlayerControls();
+
+        Controls.Player.Move.performed += ctx => MoveVector = ctx.ReadValue<Vector2>();
+        Controls.Player.Move.canceled += ctx => MoveVector = Vector2.zero;
+
+        Controls.Player.Jump.performed += ctx => isJumping = true;
+        Controls.Player.Jump.canceled += ctx => isJumping = false;
+        Controls.Player.Crouch.performed += ctx => isCrouching = true;
+        Controls.Player.Crouch.canceled += ctx => isCrouching = false;
+        Controls.Player.Sprint.performed += ctx => isSprinting = true;
+        Controls.Player.Sprint.canceled += ctx => isSprinting = false;
+
+
         #region Look Settings - Awake
         originalRotation = transform.localRotation.eulerAngles;
 
@@ -265,7 +281,7 @@ public class BETA_SETTINGS{
         #endregion
 
         #region Movement Settings - Start
-        staminaInternal = Stamina * 10;
+        //CurrentStamina = Stamina * 10;
 
         #endregion
 
@@ -287,10 +303,13 @@ public class BETA_SETTINGS{
 
         if (enableCameraMovement)
         {
-            float mouseXInput;
-            float mouseYInput;
-            mouseXInput = Input.GetAxis("Mouse Y");
-            mouseYInput = Input.GetAxis("Mouse X");
+            LookVector = Controls.Player.Look.ReadValue<Vector2>();
+
+            LookVector *= 0.5f; // Account for scaling applied directly in Windows code by old input system. TL;DR => Magic Value to for the new Input system mouse movement to feel like the old system
+            LookVector *= 0.1f; // Account for sensitivity setting on old Mouse X and Y axes. TL;DR => Magic Value to for the new Input system mouse movement to feel like the old system
+
+            float mouseXInput = LookVector.y;
+            float mouseYInput = LookVector.x;
             if (targetAngles.y > 180) { targetAngles.y -= 360; followAngles.y -= 360; } else if (targetAngles.y < -180) { targetAngles.y += 360; followAngles.y += 360; }
             if (targetAngles.x > 180) { targetAngles.x -= 360; followAngles.x -= 360; } else if (targetAngles.x < -180) { targetAngles.x += 360; followAngles.x += 360; }
             targetAngles.y += mouseYInput * mouseSensitivity;
@@ -317,6 +336,7 @@ public class BETA_SETTINGS{
         #endregion
     }
 
+
     private void FixedUpdate()
     {
         #region Look Settings - FixedUpdate
@@ -328,10 +348,19 @@ public class BETA_SETTINGS{
         bool wasWalking = !isSprinting;
         if (useStamina)
         {
-            if (staminaInternal > 0) { if (!isCrouching) { isSprinting = Input.GetKey(KeyCode.LeftShift); } } else { isSprinting = false; }
-            if (isSprinting == true && staminaInternal > 0) { staminaInternal -= staminaDepletionSpeed; } else if (staminaInternal < (Stamina * 10) && !Input.GetKey(KeyCode.LeftShift)) { staminaInternal += staminaDepletionSpeed / 2; }
+            if (CurrentStamina > 0) { if (isCrouching) { isSprinting = false; } } else { isSprinting = false; }
+
+            if (isSprinting && CurrentStamina > 0)
+            {
+                CurrentStamina -= staminaDepletionSpeed;
+            }
+            else if (CurrentStamina < (Stamina * 10) && !isSprinting)
+            {
+                CurrentStamina += staminaDepletionSpeed / 2;
+            }
         }
-        else { isSprinting = Input.GetKey(KeyCode.LeftShift); }
+
+        UIManager.Instance.RefreshStamina(CurrentStamina);
 
         advanced.tooSteep = false;
         float inrSprintSpeed;
@@ -440,8 +469,8 @@ public class BETA_SETTINGS{
         }
 
 
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = MoveVector.x;
+        float verticalInput = MoveVector.y;
 
         if (anim != null)
         {
@@ -453,13 +482,15 @@ public class BETA_SETTINGS{
         if (inputXY.magnitude > 1) { inputXY.Normalize(); }
 
         float yv = fps_Rigidbody.velocity.y;
-        bool didJump = canHoldJump ? Input.GetButton("Jump") : Input.GetButtonDown("Jump");
 
-        if (IsGrounded && didJump && jumpPowerInternal > 0)
+        if (IsGrounded && isJumping && jumpPowerInternal > 0)
         {
+
             yv += jumpPowerInternal;
             IsGrounded = false;
-            didJump = false;
+
+            if (!canHoldJump)
+                isJumping = false;
         }
 
         if (playerCanMove)
@@ -483,8 +514,6 @@ public class BETA_SETTINGS{
 
         if (_crouchModifiers.useCrouch && _crouchModifiers.CrouchInputAxis != string.Empty)
         {
-            isCrouching = _crouchModifiers.crouchOverride ? true : Input.GetAxis(_crouchModifiers.CrouchInputAxis) > 0;
-
             if (isCrouching)
             {
                 capsule.height = Mathf.MoveTowards(capsule.height, _crouchModifiers.colliderHeight / 2, 5 * Time.deltaTime);
@@ -711,8 +740,14 @@ public class BETA_SETTINGS{
         }
         playerCamera.transform.localPosition = cameraStartingPosition;
     }
+
+    private void OnEnable()
+    {
+        Controls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        Controls.Disable();
+    }
 }
-
-
-
-
