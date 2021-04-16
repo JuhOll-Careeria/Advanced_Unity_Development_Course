@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/_AUD-Playground/Scenes/SecondLevel.unity
     guid: 2b4bae667a57cc74e843a4eae9966d08
   - enabled: 1
-    path: Assets/_AUD-Playground/Scenes/BaseLevel.unity
+    path: Assets/_AUD-Playground/Scenes/FifthLevel.unity
     guid: 6cc52db9990e44a44b182e170ee9f228
   - enabled: 1
     path: Assets/_AUD-Playground/Scenes/Menu.unity

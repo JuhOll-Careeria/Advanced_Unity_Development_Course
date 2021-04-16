@@ -213,7 +213,7 @@ public class EnemyController : MonoBehaviour, IKillable
                 playerInSight = false;
             }
 
-            if (playerSightedPosition != Vector3.zero && !playerInSight && _State != EnemyState.Chase && !AttackOnCD)
+            if (playerSightedPosition != Vector3.zero && !playerInSight && _State != EnemyState.Chase)
             {
                 StopChaseTimer = Data.ChaseTime;
                 _State = EnemyState.Chase;
