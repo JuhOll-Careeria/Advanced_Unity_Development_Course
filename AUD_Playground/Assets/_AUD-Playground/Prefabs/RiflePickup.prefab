@@ -52,6 +52,7 @@ MonoBehaviour:
   SoundEffectOnInteract:
     volume: 0
     spatialBlend: 0
+    Mixer: {fileID: 0}
     clips: []
   DestroyOnInteract: 1
   WepData: {fileID: 11400000, guid: 37efddaf7e8932b43aabc57781c2f908, type: 2}
@@ -136,6 +137,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -160,3 +162,4 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
