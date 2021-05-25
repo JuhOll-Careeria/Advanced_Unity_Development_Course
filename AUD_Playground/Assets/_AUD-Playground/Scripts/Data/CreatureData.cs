@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Base Creature Data that is the parent class to all other creatures
+/// </summary>
 public class CreatureData : ScriptableObject
 {
     [Header("Base Creature Data")]

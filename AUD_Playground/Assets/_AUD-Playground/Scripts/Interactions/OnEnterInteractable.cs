@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// Handles just the "OnEnter" interactable logic, without the others in the interface
+/// </summary>
 public class OnEnterInteractable : MonoBehaviour, IInteractable
 {
     [SerializeField] UnityEvent OnEnterInteractionEvent;
